@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
+import { AuthProvider } from './context/AuthContext';
+import useApp from './hooks/useApp';
+import Navigation from './navigation/Navigation';
+import SplashScreen from './screens/SplashScreen';
+
 
 export default function App() {
+
+  const { isSplashReady, isUserLoggedIn } = useApp();
+
+  if (!isSplashReady) {
+    return <SplashScreen />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <Navigation />
+      <Toast />
+    </AuthProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

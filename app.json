@@ -1,15 +1,18 @@
 {
   "expo": {
-    "name": "PrismaU-Club",
+    "name": "PrismaU Club",
     "slug": "PrismaU-Club",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/img/logo-PRISMA.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/img/Logo_PrismaU.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "imageBackgroundResizeMode": "center",
+      "fadeOutDuration": 300,
+      "fadeInDuration": 500
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +22,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/img/Logo_PrismaU.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ticsoftdev.PrismaUIdClub",
+      "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/img/Logo_PrismaU.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9690b732-37ad-4f13-bc58-61faafcd1ee8"
+      }
     }
   }
 }
