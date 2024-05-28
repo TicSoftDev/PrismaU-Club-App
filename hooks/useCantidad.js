@@ -6,13 +6,14 @@ import { alertWarning } from "../utilities/toast/Toast";
 
 export default function useCantidad() {
 
-    const { token, user } = useAuthContext();
+    const { token, user, credenciales } = useAuthContext();
     const [contFamiliaresSocio, setContFamiliaresSocio] = useState(0);
     const [contInvitadosSocio, setContInvitadosSocio] = useState(0);
 
     const cantidadFamiliaresSocio = async () => {
         try {
-            const data = await getCantidadFamiliaresSocio(user.id, token);
+            const rol = credenciales.Rol == 2 ? "Asociado" : "Adherente";
+            const data = await getCantidadFamiliaresSocio(user.id, rol, token);
             setContFamiliaresSocio(data);
         } catch (error) {
             alertWarning('Count error', error.message);
@@ -21,7 +22,7 @@ export default function useCantidad() {
 
     const cantidadInvitadosSocio = async () => {
         try {
-            const data = await getCantidadInvitadosSocio(user.id, token);
+            const data = await getCantidadInvitadosSocio(credenciales.id, token);
             setContInvitadosSocio(data);
         } catch (error) {
             alertWarning('Count error', error.message);

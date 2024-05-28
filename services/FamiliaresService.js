@@ -2,9 +2,9 @@ import axios from "axios";
 
 const URL_FAMILIAR = "https://www.apiclubsincelejo.prismau.co/api/familiares";
 
-export const getCantidadFamiliaresSocio = async (id, token) => {
+export const getCantidadFamiliaresSocio = async (id, rol, token) => {
     try {
-        const res = await axios.get(URL_FAMILIAR + "/cantidad/" + id, {
+        const res = await axios.get(URL_FAMILIAR + "/cantidad/" + id + "/" + rol, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -16,9 +16,9 @@ export const getCantidadFamiliaresSocio = async (id, token) => {
     }
 }
 
-export const getFamiliaresSocio = async (id, token) => {
+export const getFamiliaresSocio = async (id, rol, token) => {
     try {
-        const res = await axios.get(URL_FAMILIAR + "/socio/" + id, {
+        const res = await axios.get(URL_FAMILIAR + "/" + id + "/" + rol, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

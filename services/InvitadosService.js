@@ -3,6 +3,7 @@ import axios from "axios";
 const URL = 'https://www.apiclubsincelejo.prismau.co/api/invitados';
 
 export const createInvitado = async (data, token) => {
+    console.log(data);
     try {
         const res = await axios.post(URL, data, {
             headers: {

@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const URL = 'https://www.apiclubsincelejo.prismau.co/api/asociados/familiares/';
+const URL = 'https://www.apiclubsincelejo.prismau.co/api/entradas/';
 
-export const getAsociadoWithFamiliar = async (id, token) => {
+export const createEntrada = async (id, token) => {
     try {
-        const res = await axios.get(URL + id, {
+        const res = await axios.post(URL + id, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const URL = 'https://www.apiclubsincelejo.prismau.co/api/asociados/familiares/';
+const URL = 'https://www.apiclubsincelejo.prismau.co/api/adherentes/familiares/';
 
-export const getAsociadoWithFamiliar = async (id, token) => {
+export const getAdherenteWithFamiliar = async (id, token) => {
     try {
         const res = await axios.get(URL + id, {
             headers: {

@@ -7,12 +7,12 @@ import { es } from 'date-fns/locale';
 
 export default function useInvitado() {
 
-    const { token, user } = useAuthContext();
+    const { token, credenciales } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [generado, setGenerado] = useState(false);
     const [invitacion, setInvitacion] = useState({});
     const [invitado, setInvitado] = useState({
-        personal_id: user.id,
+        user_id: credenciales.id,
         Nombre: "",
         Apellidos: "",
         Telefono: "",
@@ -27,7 +27,7 @@ export default function useInvitado() {
 
     const recargar = () => {
         setInvitado({
-            personal_id: user.id,
+            user_id: credenciales.id,
             Nombre: "",
             Apellidos: "",
             Telefono: "",
@@ -64,6 +64,7 @@ export default function useInvitado() {
                 alertWarning("Esta persona superó el límite de invitaciones mensuales.");
             }
         } catch (error) {
+            setLoading(false);
             alertWarning("Invitado" + error.message);
         }
     };

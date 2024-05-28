@@ -17,9 +17,9 @@ export default function BotonLogout() {
     };
 
     return (
-        <TouchableOpacity style={tw`flex flex-row items-center justify-center mx-4 border-2 border-red-500 rounded-lg p-1.5 px-2`} onPress={cerrarSesion}>
-            <FontAwesome5 name="logout" size={20} style={tw`text-red-500 mr-1`} />
-            <Text style={tw`text-red-500 text-sm font-bold`}>Salir</Text>
+        <TouchableOpacity style={tw`flex flex-row items-center justify-center mx-4 border-2 border-gray-400 rounded-lg p-1.5 px-2`} onPress={cerrarSesion}>
+            <FontAwesome5 name="logout" size={20} style={tw`text-gray-400 mr-1`} />
+            <Text style={tw`text-gray-400 text-sm font-bold`}>Salir</Text>
         </TouchableOpacity>
     )
 }
