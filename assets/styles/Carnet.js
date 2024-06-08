@@ -24,6 +24,6 @@ export const styles = StyleSheet.create({
         backgroundColor: '#055D20',
         borderTopLeftRadius: 30,
         borderBottomLeftRadius: 30,
-        paddingStart: 20,
+        paddingStart: 25,
     },
 });

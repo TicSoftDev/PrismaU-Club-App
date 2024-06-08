@@ -13,7 +13,6 @@ export default function CodigoQr({ user, dataString, fechaVencimientoTexto }) {
             <View style={tw`px-4 pt-8 pb-5 w-full`}>
                 <View style={tw`flex justify-center items-center bg-white rounded-lg p-4 shadow-lg`}>
                     <QRCode color='black' value={dataString} size={300} />
-
                 </View>
             </View>
             <View style={tw`flex justify-center items-center`}>

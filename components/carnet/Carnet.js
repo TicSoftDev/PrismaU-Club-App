@@ -13,6 +13,8 @@ export default function Carnet() {
     const { user, credenciales } = useAuthContext();
     const data = JSON.stringify(user);
     const rol = (credenciales.Rol == 0 || credenciales.Rol == 1 || credenciales.Rol == 4 || credenciales.Rol == 6) ? 'EMPLEADO' : 'ASOCIADO';
+    const primerNombre = user.Nombre.split(' ')[0];
+    const primerApellido = user.Apellidos.split(' ')[0];
 
     return (
         <View style={tw`flex-1 justify-center items-center bg-white`}>
@@ -52,13 +54,13 @@ export default function Carnet() {
 
                         <View style={[tw`p-2 ml-12`, styles.cuadro]}>
                             <Text style={tw`text-lg text-white`}>
-                                {user.Nombre + ' ' + user.Apellidos}
+                                {primerNombre + ' ' + primerApellido}
                             </Text>
                         </View>
 
                         <View style={tw`items-end mr-6`}>
                             <Text style={tw`text-lg font-bold`}>
-                                {user.TipoDocumento + ': ' + user.Documento}
+                                {user.Codigo ? user.Codigo : 'No asignado'}
                             </Text>
                         </View>
 
