@@ -19,7 +19,7 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
                     value={documento} onChangeText={setDocumento} />
             </View>
             <View style={stylesLogin.inputContainer}>
-                <MaterialIcons name="key" size={20} color="#000" style={stylesLogin.inputIcon} />
+                <MaterialIcons name="lock" size={20} color="#000" style={stylesLogin.inputIcon} />
                 <TextInput style={stylesLogin.textInput} placeholder="Contraseña"
                     value={password} onChangeText={setPassword} secureTextEntry={true} />
             </View>

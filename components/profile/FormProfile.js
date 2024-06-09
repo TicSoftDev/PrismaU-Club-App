@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 import { useAuthContext } from '../../context/AuthContext';
 import imagenes from '../../assets/img/imagenes';
 import { servidorBack } from '../../routes/Routes';
 
-const FormProfile = () => {
+const FormProfile = ({ toggleModal }) => {
     const { user } = useAuthContext();
 
     return (
@@ -28,6 +28,12 @@ const FormProfile = () => {
                 <InformationItem icon="envelope" label="Correo" value={user.Correo} />
                 <InformationItem icon="phone-alt" label="Teléfono" value={user.Telefono} />
                 <InformationItem icon="map-marker-alt" label="Dirección" value={user.DireccionResidencia || 'No registrada'} />
+            </View>
+
+            <View style={tw`mt-2 bg-white p-5 shadow-sm`}>
+                <TouchableOpacity style={tw`mt-4 bg-green-500 p-2 rounded-full shadow`} onPress={toggleModal}>
+                    <Text style={tw`text-white text-center`}>Cambiar Contraseña</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );

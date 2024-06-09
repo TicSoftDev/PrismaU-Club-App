@@ -8,10 +8,11 @@ import { Keyboard } from 'react-native';
 export default function useAuth() {
 
     const navigation = useNavigation();
+    const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [documento, setDocumento] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useAuthContext();
+    const { login, logout } = useAuthContext();
 
     const recargar = () => {
         setDocumento('');
@@ -35,12 +36,27 @@ export default function useAuth() {
         }
     }
 
+    const toggleModal = () => {
+        setModal(!modal);
+    }
+
+    const cerrarSesion = async () => {
+        setLoading(true);
+        await logout();
+        navigation.navigate(Routes.LOGIN);
+        setLoading(false);
+        toggleModal(); 
+    };
+
     return {
         loading,
         documento,
         password,
+        modal,
         setDocumento,
         setPassword,
-        handleLogin
+        handleLogin,
+        toggleModal,
+        cerrarSesion
     }
 }
