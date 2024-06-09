@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
 import { useAuthContext } from '../context/AuthContext';
-import { getUsuario } from '../services/UsuariosService';
+import { getUsersActivos } from '../services/UsuariosService';
 import { alertWarning } from '../utilities/toast/Toast';
 
 export default function useBuscador() {
@@ -11,26 +11,10 @@ export default function useBuscador() {
     const [user, setUser] = useState({});
     const [searched, setSearched] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [usuarios, setUsuarios] = useState([]);
 
     const handleChange = (value) => {
         setBusqueda(value);
-    }
-
-    const handleBusqueda = async () => {
-        Keyboard.dismiss();
-        if (busqueda === '') {
-            return alertWarning('Se debe ingresar un valor');
-        }
-        setIsLoading(true);
-        const res = await getUsuario(busqueda, token);
-        setIsLoading(false);
-        if (res.status === false) {
-            newSearch()
-            return alertWarning("No se encontro el usuario");
-        } else {
-            setSearched(true);
-            setUser(res.user);
-        }
     }
 
     const newSearch = () => {
@@ -38,6 +22,55 @@ export default function useBuscador() {
         setBusqueda('');
         setUser({});
     }
+
+    const getUsers = async () => {
+        setIsLoading(true);
+        try {
+            const res = await getUsersActivos(token);
+            setUsuarios(res || []);
+        } catch (error) {
+            alertWarning('Error al cargar usuarios');
+        }
+        setIsLoading(false);
+    }
+
+    const normalizeText = (text) => {
+        return text?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    };
+    
+    const handleBusqueda = () => {
+        Keyboard.dismiss();
+        if (busqueda.trim() === '') {
+            alertWarning('Se debe ingresar un valor');
+            return;
+        }
+        setIsLoading(true);
+        
+        const busquedaLower = normalizeText(busqueda);
+        
+        const filteredUsers = usuarios.filter(u => {
+            const documento = normalizeText(u.documento);
+            const fullName = `${normalizeText(u.nombre)} ${normalizeText(u.apellidos)}`;
+    
+            return documento.includes(busquedaLower) ||
+                   fullName.includes(busquedaLower) ||
+                   busquedaLower.split(' ').every(word => fullName.includes(word));
+        });
+    
+        if (filteredUsers.length === 0) {
+            alertWarning("No se encontró el usuario");
+        } else {
+            setUser(filteredUsers[0]); 
+            setSearched(true);
+        }
+        setIsLoading(false);
+    };
+    
+      
+    
+    useEffect(() => {
+        getUsers();
+    }, [])
 
     return {
         searched,
