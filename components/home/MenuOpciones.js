@@ -10,7 +10,7 @@ export default function MenuOpciones() {
     const navigation = useNavigation();
 
     return (
-        <View style={tw`px-4 py-3 flex-row justify-between flex-wrap`}>
+        <View style={tw`px-4 flex-row justify-between flex-wrap`}>
             <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.FAMILIARES)}>
                 <View style={tw`w-16 h-16 bg-red-500 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="users" size={24} color="#ffffff" />

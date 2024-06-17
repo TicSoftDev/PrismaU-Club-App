@@ -7,6 +7,7 @@ import Logo from '../components/home/Logo';
 import MenuOpciones from '../components/home/MenuOpciones';
 import { useAuthContext } from '../context/AuthContext';
 import useCantidad from '../hooks/useCantidad';
+import Noticias from '../components/home/Noticias';
 
 export default function HomeScreen() {
   const { user, credenciales } = useAuthContext();
@@ -22,7 +23,7 @@ export default function HomeScreen() {
             <View style={tw`p-4 mb-5`}>
               <Text style={tw`text-lg font-bold mb-2`}>Panel</Text>
               <MenuOpciones />
-              <Logo />
+              <Noticias />
             </View>
           </>
           :
