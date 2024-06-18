@@ -39,7 +39,6 @@ export default function useQr() {
                 setRol(dataParse.rol);
                 if (dataParse.rol == 2) {
                     const res = await getAsociadoWithFamiliar(dataParse.usuario.id, token);
-                    console.log(res);
                     setData(res);
                 } else if (dataParse.rol == 3) {
                     const res = await getAdherenteWithFamiliar(dataParse.usuario.id, token);

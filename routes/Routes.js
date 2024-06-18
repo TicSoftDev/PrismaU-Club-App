@@ -12,6 +12,7 @@ export const Routes = {
     INVITACION : 'Invitacion',
     FAMILIARES : 'Familiares',
     ESPACIO : 'Espacio',
+    ENTRADAS : 'Entradas',
 }
 
 export const servidorBack = "https://www.apiclubsincelejo.prismau.co";

@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import useApp from './hooks/useApp';
 import Navigation from './navigation/Navigation';
 import SplashScreen from './screens/SplashScreen';
+import { PaperProvider } from 'react-native-paper';
 
 
 export default function App() {
@@ -16,8 +17,10 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <Navigation />
-      <Toast />
+      <PaperProvider>
+        <Navigation />
+        <Toast />
+      </PaperProvider>
     </AuthProvider>
   );
 }

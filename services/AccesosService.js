@@ -15,3 +15,17 @@ export const createEntrada = async (id, token) => {
         throw error.message;
     }
 }
+
+export const getEntradas = async (token) => {
+    try {
+        const res = await axios.get(URL, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+}
