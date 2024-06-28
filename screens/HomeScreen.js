@@ -23,7 +23,7 @@ export default function HomeScreen() {
             <View style={tw`p-4 mb-5`}>
               <Text style={tw`text-lg font-bold mb-2`}>Panel</Text>
               <MenuOpciones />
-              <Noticias />
+              {/* <Noticias /> */}
             </View>
           </>
           :
