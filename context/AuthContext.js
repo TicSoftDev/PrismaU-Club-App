@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import { createContext, useContext, useEffect, useState } from "react";
 import { validarSesion } from "../services/AuthService";
-import { getAsociadoWithFamiliar } from "../services/AsociadosServices";
 
 export const AuthContext = createContext();
 
@@ -12,6 +12,23 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [credenciales, setCredenciales] = useState({});
     const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        const checkUserSession = async () => {
+            try {
+                const storedToken = await AsyncStorage.getItem("@token");
+                if (storedToken) {
+                    setToken(storedToken);
+                } else {
+                    setToken(null);
+                }
+            } catch (error) {
+                console.log("Error al cargar sesión:", error);
+            }
+        };
+
+        checkUserSession();
+    }, []);
 
     const login = async (documento, password) => {
         try {
@@ -37,7 +54,7 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setCredenciales({});
         await AsyncStorage.multiRemove(['@token', '@credenciales', '@user']);
-    }
+    };
 
     useEffect(() => {
         const loadStoredData = async () => {

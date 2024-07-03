@@ -1,32 +1,62 @@
-import { format } from 'date-fns';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { format, addHours } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import es from 'date-fns/locale/es';
-import React from 'react';
+import { ActivityIndicator, View, Text } from 'react-native';
 import CodigoQr from '../components/qr/CodigoQr';
 import { useAuthContext } from '../context/AuthContext';
+import tw from 'tailwind-react-native-classnames';
 
 export default function QrScreen() {
-
   const { user, credenciales } = useAuthContext();
-  const ahora = new Date();
-  const vencimiento = new Date(ahora.getTime() + 24 * 60 * 60 * 1000);
-  const fechaVencimientoTexto = format(vencimiento, "PPpp", { locale: es });
-  const fechaVencimiento = vencimiento.toISOString();
-  const usuario = {
-    id: user.id,
-    imagen: user.imagen,
-    nombre: user.Nombre,
-    apellidos: user.Apellidos,
-    tipoDocumento: user.TipoDocumento,
-    documento: user.Documento,
-    user_id: credenciales.id
-  };
-  const datosQR = {
-    usuario: usuario,
-    rol: credenciales.Rol,
-    vencimiento: fechaVencimiento
-  };
-  const dataString = JSON.stringify(datosQR);
+  const [dataString, setDataString] = useState('');
+  const [fechaVencimientoTexto, setFechaVencimientoTexto] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      const ahora = new Date();
+      const zonaHoraria = 'America/Bogota';
+      const vencimiento = addHours(ahora, 12);
+
+      const fechaVencimientoTexto = formatInTimeZone(vencimiento, zonaHoraria, 'PPpp', { locale: es });
+      const fechaVencimiento = vencimiento.toISOString();
+
+      const usuario = {
+        id: user.id,
+        imagen: user.imagen,
+        nombre: user.Nombre,
+        apellidos: user.Apellidos,
+        tipoDocumento: user.TipoDocumento,
+        documento: user.Documento,
+        user_id: credenciales.id
+      };
+
+      const datosQR = {
+        usuario: usuario,
+        rol: credenciales.Rol,
+        vencimiento: fechaVencimiento
+      };
+
+      const dataString = JSON.stringify(datosQR);
+      
+      setDataString(dataString);
+      setFechaVencimientoTexto(fechaVencimientoTexto);
+      setIsLoading(false);
+    }, [user, credenciales])
+  );
+
+  if (isLoading) {
+    return (
+      <View style={tw`flex-1 justify-center items-center`}>
+        <ActivityIndicator size="large" color="#00ff00" />
+        <Text style={tw`text-lg mt-4`}>Cargando...</Text>
+      </View>
+    );
+  }
+
   return (
     <CodigoQr user={user} dataString={dataString} fechaVencimientoTexto={fechaVencimientoTexto} />
-  )
+  );
 }

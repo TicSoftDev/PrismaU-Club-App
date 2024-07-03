@@ -1,21 +1,13 @@
-import React from 'react'
-import { View, Text, Image, ScrollView } from 'react-native'
-import { useAuthContext } from '../../context/AuthContext';
+import React from 'react';
+import { Image, ScrollView, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import Svg, { Text as SvgText } from 'react-native-svg';
-import { styles } from '../../assets/styles/Carnet';
-import tw from 'tailwind-react-native-classnames'
+import tw from 'tailwind-react-native-classnames';
 import imagenes from '../../assets/img/imagenes';
+import { styles } from '../../assets/styles/Carnet';
 import { servidorBack } from '../../routes/Routes';
 
-export default function Carnet() {
-
-    const { user, credenciales } = useAuthContext();
-    const data = JSON.stringify(user);
-    const rol = (credenciales.Rol == 0 || credenciales.Rol == 1 || credenciales.Rol == 4 || credenciales.Rol == 6) ? 'EMPLEADO' : 'ASOCIADO';
-    const primerNombre = user.Nombre.split(' ')[0];
-    const primerApellido = user.Apellidos.split(' ')[0];
-
+export default function Carnet({ user, primerNombre, primerApellido, rol, data }) {
     return (
         <View style={tw`flex-1 justify-center items-center bg-white`}>
             <View style={styles.card}>
@@ -47,7 +39,7 @@ export default function Carnet() {
 
                         <View style={tw`items-center mt-10 mb-6`}>
                             {user.imagen ?
-                                <Image src={servidorBack + user.imagen} style={tw`h-36 w-36 rounded-full`} /> :
+                                <Image source={{ uri: servidorBack + user.imagen }} style={tw`h-36 w-36 rounded-full`} /> :
                                 <Image source={imagenes.avatar} style={tw`h-36 w-36 rounded-full`} resizeMode='contain' />
                             }
                         </View>
@@ -75,5 +67,5 @@ export default function Carnet() {
                 </ScrollView>
             </View>
         </View>
-    )
+    );
 }
