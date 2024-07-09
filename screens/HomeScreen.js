@@ -21,7 +21,7 @@ export default function HomeScreen() {
           <>
             <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} />
             <View style={tw`p-4 mb-5`}>
-              <Text style={tw`text-lg font-bold mb-2`}>Panel</Text>
+              <Text style={tw`text-lg font-bold mb-5`}>Panel</Text>
               <MenuOpciones />
               {/* <Noticias /> */}
             </View>
