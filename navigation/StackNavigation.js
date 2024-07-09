@@ -21,7 +21,7 @@ export const StackNavigation = () => {
         <Stack.Navigator >
             <Stack.Screen name={Routes.LOGIN} component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name={Routes.REGISTER} component={RegistroScreen} options={{
-                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,headerBackTitleVisible: false,
             }} />
             <Stack.Screen name={Routes.HOME} component={TopNavigation} options={{
                 headerTitle: () => <HeaderNavigation />, headerLeft: () => null,

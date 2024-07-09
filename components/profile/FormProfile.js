@@ -23,7 +23,7 @@ const FormProfile = ({ toggleModal }) => {
             </View>
 
             <View style={tw`mt-2 bg-white p-5 shadow-sm`}>
-                <Text style={tw`text-xl font-semibold mb-4`}>INFORMACION</Text>
+                <Text style={tw`text-xl font-semibold mb-4`}>INFORMACIÓN</Text>
                 <InformationItem icon="id-card" label="Documento" value={user.TipoDocumento + ': ' + user.Documento} />
                 <InformationItem icon="envelope" label="Correo" value={user.Correo} />
                 <InformationItem icon="phone-alt" label="Teléfono" value={user.Telefono} />

@@ -8,3 +8,4 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 0,
     },
 });
+
