@@ -24,19 +24,19 @@ export const StackNavigation = () => {
                 headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,headerBackTitleVisible: false,
             }} />
             <Stack.Screen name={Routes.HOME} component={TopNavigation} options={{
-                headerTitle: () => <HeaderNavigation />, headerLeft: () => null,
+                headerTitle: () => <HeaderNavigation />, headerLeft: () => null,headerBackTitleVisible: false,
                 headerRight: () => <BotonLogout />, headerStyle: styles.headerStyle,
             }} />
             <Stack.Screen name={Routes.INVITACION} component={InvitacionScreen} options={{
-                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,headerBackTitleVisible: false,
                 headerRight: () => <BotonLogout />
             }} />
             <Stack.Screen name={Routes.FAMILIARES} component={FamiliaresScreen} options={{
-                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,headerBackTitleVisible: false,
                 headerRight: () => <BotonLogout />
             }} />
             <Stack.Screen name={Routes.ESPACIO} component={EspaciosScreen} options={{
-                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,headerBackTitleVisible: false,
                 headerRight: () => <BotonLogout />
             }} />
         </Stack.Navigator>
