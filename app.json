@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "PrismaU Club",
-    "slug": "PrismaU-Club",
+    "name": "PrismaU Identidad",
+    "slug": "prismau-identidad",
     "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./assets/img/logo-PRISMA.png",
@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "co.ticsoft.prismauidentidad"
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +35,7 @@
     "extra": {
       "eas": {
         "projectId": "9690b732-37ad-4f13-bc58-61faafcd1ee8"
+        //"projectId": "6c0c477b-5217-4dc5-b206-82ae14cdcb20" //para apple cuenta Javier
       }
     }
   }
