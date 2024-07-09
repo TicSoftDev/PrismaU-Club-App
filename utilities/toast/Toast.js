@@ -21,7 +21,7 @@ export const alertWarning = (message) => {
     Toast.show({
         type: 'info',
         position: 'bottom',
-        text1: 'No completado',
+        text1: 'Ingrese todos los campos',
         text2: message,
         visibilityTime: 4000,
         autoHide: true,
