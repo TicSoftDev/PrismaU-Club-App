@@ -25,7 +25,7 @@ export default function CardsFamiliares({ familiares, isLoading }) {
                     </View>
                     :
                     <View style={tw`p-4`}>
-                        <Text style={tw`text-lg font-bold mb-4`}>Listado de Familiares</Text>
+                        <Text style={tw`text-lg font-bold mb-4`}>Listado</Text>
                         {familiares.map((item, index) => (
                             <View key={index} style={tw`flex-row items-center p-3 mb-2 rounded-lg bg-gray-100 shadow`}>
                                 <FontAwesome5 name="user" size={24} color="green" style={tw`mr-6 ml-2`} />
