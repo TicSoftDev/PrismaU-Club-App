@@ -75,7 +75,7 @@ export default function Carnet({
 
             <View style={tw`items-end mr-6`}>
               <Text style={tw`text-lg font-bold`}>
-                {user.Codigo ? user.Codigo : ""}
+                {user.Documento ? user.Documento : ""}
               </Text>
             </View>
             {user.Estado == 0 && (

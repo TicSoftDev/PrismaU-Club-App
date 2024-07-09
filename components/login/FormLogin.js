@@ -5,6 +5,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import tw from 'tailwind-react-native-classnames';
 import imagenes from '../../assets/img/imagenes';
 import { stylesLogin } from '../../assets/styles/Login';
+import { useNavigation } from '@react-navigation/native';
+import { Routes } from '../../routes/Routes';
 
 const openURL = async (url) => {
   try {
@@ -20,10 +22,13 @@ const openURL = async (url) => {
 };
 
 export default function FormLogin({ loading, documento, password, setDocumento, setPassword, handleLogin }) {
+
+  const navigate = useNavigation();
+  
   return (
     <SafeAreaView style={tw`flex-1 bg-white`}>
-      <KeyboardAvoidingView 
-        style={tw`flex-1`} 
+      <KeyboardAvoidingView
+        style={tw`flex-1`}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView contentContainerStyle={tw`flex-1 justify-center items-center`}>
@@ -32,11 +37,11 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
           <Text style={stylesLogin.subtitulo}>Inicia sesión en tu cuenta</Text>
           <View style={stylesLogin.inputContainer}>
             <Icon name="id-card" size={20} color="#000" style={stylesLogin.inputIcon} />
-            <TextInput 
-              style={stylesLogin.textInput} 
+            <TextInput
+              style={stylesLogin.textInput}
               placeholder="Número de documento"
-              value={documento} 
-              onChangeText={setDocumento} 
+              value={documento}
+              onChangeText={setDocumento}
               returnKeyType="next"
               onSubmitEditing={() => this.passwordInput.focus()} // Foco en el siguiente campo
               blurOnSubmit={false}
@@ -44,12 +49,12 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
           </View>
           <View style={stylesLogin.inputContainer}>
             <MaterialIcons name="lock" size={20} color="#000" style={stylesLogin.inputIcon} />
-            <TextInput 
-              style={stylesLogin.textInput} 
+            <TextInput
+              style={stylesLogin.textInput}
               placeholder="Contraseña"
-              value={password} 
-              onChangeText={setPassword} 
-              secureTextEntry={true} 
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
               returnKeyType="go"
               ref={(input) => { this.passwordInput = input; }}
               onSubmitEditing={handleLogin} // Llamada al iniciar sesión al presionar Enter
@@ -64,7 +69,7 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
             <TouchableOpacity style={stylesLogin.olvidar} onPress={() => openURL('https://prismau.co/')}>
               <Text style={stylesLogin.textOlvidar}>¿Olvidaste tu contraseña?</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={stylesLogin.olvidar} onPress={() => openURL('https://prismau.co/')}>
+            <TouchableOpacity style={stylesLogin.olvidar} onPress={() => navigate.navigate(Routes.REGISTER)}>
               <Text style={stylesLogin.textOlvidar}>Registrar</Text>
             </TouchableOpacity>
           </View>

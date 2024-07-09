@@ -11,6 +11,7 @@ import { styles } from "../assets/styles/Header";
 import BotonLogout from "../utilities/Header/BotonLogout";
 import FamiliaresScreen from "../screens/FamiliaresScreen";
 import EspaciosScreen from "../screens/EspaciosScreen";
+import RegistroScreen from "../screens/RegistroScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,9 @@ export const StackNavigation = () => {
     return (
         <Stack.Navigator >
             <Stack.Screen name={Routes.LOGIN} component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name={Routes.REGISTER} component={RegistroScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle,
+            }} />
             <Stack.Screen name={Routes.HOME} component={TopNavigation} options={{
                 headerTitle: () => <HeaderNavigation />, headerLeft: () => null,
                 headerRight: () => <BotonLogout />, headerStyle: styles.headerStyle,
