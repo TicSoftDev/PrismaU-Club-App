@@ -44,8 +44,20 @@ export default function FormRegistro() {
                         <TextInput placeholder="Ingrese el número de teléfono" style={tw`flex-1`}
                         />
                     </View>
+                    <Text style={tw`text-sm font-bold m-2`}>Empresa</Text>
+                    <View style={tw`flex flex-row items-center w-full h-10 rounded-full border-2 border-gray-200 bg-gray-100`}>
+                        <FontAwesome5 name="store" style={tw`mr-1 px-4 text-lg text-gray-400`} />
+                        <TextInput placeholder="Ingrese el nombre de la empresa" style={tw`flex-1`}
+                        />
+                    </View>
+                    <Text style={tw`text-sm font-bold m-2`}>Ciudad</Text>
+                    <View style={tw`flex flex-row items-center w-full h-10 rounded-full border-2 border-gray-200 bg-gray-100`}>
+                        <FontAwesome5 name="city" style={tw`mr-1 px-4 text-lg text-gray-400`} />
+                        <TextInput placeholder="Ingrese la ciudad" style={tw`flex-1`}
+                        />
+                    </View>
                     <TouchableOpacity style={tw`mt-4 bg-green-500 p-2 rounded shadow`} >
-                        <Text style={tw`text-white text-center`}>
+                        <Text style={tw`text-white text-center font-bold uppercase`}>
                             Registrarse
                             {/* {loading ? <ActivityIndicator color={'#fff'} size={'large'} /> : 'Registrarse'} */}
                         </Text>
