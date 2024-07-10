@@ -7,8 +7,7 @@ export default function Bienvenida({ user }) {
         <>
             <View style={tw`absolute h-1/3 w-full bg-green-500`} />
             <View style={tw`h-20 w-full bg-green-500 pt-4 px-4`}>
-                <Text style={tw`text-xl text-white`}>Hola,</Text>
-                <Text style={tw`text-2xl text-white font-bold`}>{user.Nombre}</Text>
+                <Text style={tw`text-xl text-white`}>Hola, {user.Nombre}</Text>
             </View>
         </>
     )

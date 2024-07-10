@@ -15,21 +15,21 @@ export default function MenuOpciones() {
                 <View style={tw`w-16 h-16 bg-red-500 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="users" size={20} color="#ffffff" />
                 </View>
-                <Text style={tw`mt-1 text-sm font-bold`}>Familiares</Text>
+                <Text style={[tw`mt-1 font-bold`, { fontSize: 10 }]}>Familiares</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.INVITACION)}>
                 <View style={tw`w-16 h-16 bg-purple-500 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="user-clock" size={20} color="#ffffff" />
                 </View>
-                <Text style={tw`mt-1 text-sm font-bold`}>Invitación</Text>
+                <Text style={[tw`mt-1 font-bold`, { fontSize: 10 }]}>Invitación</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.ESPACIO)}>
                 <View style={tw`w-16 h-16 bg-yellow-500 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="map-marked-alt" size={20} color="#ffffff" />
                 </View>
-                <Text style={tw`mt-1 text-sm font-bold`}>Espacios</Text>
+                <Text style={[tw`mt-1 font-bold`, { fontSize: 10 }]}>Espacios</Text>
             </TouchableOpacity>
         </View>
     )

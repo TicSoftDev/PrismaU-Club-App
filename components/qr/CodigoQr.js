@@ -13,6 +13,7 @@ export default function CodigoQr({ user, dataString, fechaVencimientoTexto }) {
       <View style={tw`absolute h-1/2 w-full bg-green-500`} />
       <View style={tw`h-20 w-full bg-green-500 pt-12 px-4`}>
         <Text style={tw`text-2xl font-bold text-white`}>Código QR</Text>
+        <Text style={tw`text-2xl font-bold text-white`}></Text>
       </View>
       <View style={tw`px-4 pt-8 pb-5 w-full`}>
         <View style={tw`flex justify-center items-center bg-white rounded-lg p-4 shadow-lg`}>
