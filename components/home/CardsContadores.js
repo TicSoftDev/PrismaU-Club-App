@@ -5,7 +5,7 @@ import tw from 'tailwind-react-native-classnames';
 
 export default function CardsContadores({ familiares, invitados }) {
     return (
-        <View style={tw`px-2 pb-5 w-full`}>
+        <View style={tw`px-2 mt-5 w-full`}>
             <View style={tw`bg-white rounded-lg p-2 shadow-lg`}>
                 <View style={tw`flex-row justify-between`}>
                     <View style={tw`flex-row justify-around items-center w-1/2 border-2 border-red-500 rounded-lg mr-1`}>

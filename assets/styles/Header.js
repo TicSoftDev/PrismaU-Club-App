@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
         elevation: 0,
         shadowOpacity: 0,
         borderBottomWidth: 0,
-        headerTitleAlign: 'center',
     },
 });
 
