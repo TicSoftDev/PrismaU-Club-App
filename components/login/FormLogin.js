@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, Linking, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 import imagenes from '../../assets/img/imagenes';
 import { stylesLogin } from '../../assets/styles/Login';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../routes/Routes';
+import * as LocalAuthentication from 'expo-local-authentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const openURL = async (url) => {
   try {
@@ -22,9 +25,37 @@ const openURL = async (url) => {
 };
 
 export default function FormLogin({ loading, documento, password, setDocumento, setPassword, handleLogin }) {
-
   const navigate = useNavigation();
-  
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricSupported(compatible);
+    })();
+  }, []);
+
+  const handleBiometricAuth = async () => {
+    const savedDocumento = await AsyncStorage.getItem('documento');
+    if (!savedDocumento) {
+      Alert.alert('Error', 'No se encontró un documento guardado.');
+      return;
+    }
+
+    const biometricAuth = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Autenticación facial para iniciar sesión',
+      fallbackLabel: 'Usar contraseña',
+    });
+
+    if (biometricAuth.success) {
+      // Rellena el documento guardado y realiza el inicio de sesión automáticamente
+      setDocumento(savedDocumento);
+      handleLogin();
+    } else {
+      Alert.alert('Error', 'La autenticación facial falló.');
+    }
+  };
+
   return (
     <SafeAreaView style={tw`flex-1 bg-white`}>
       <KeyboardAvoidingView
@@ -65,6 +96,11 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
               {loading ? <ActivityIndicator color={'#fff'} size={'large'} /> : 'Ingresar'}
             </Text>
           </TouchableOpacity>
+          {isBiometricSupported && (
+            <TouchableOpacity style={styles.faceIdButton} onPress={handleBiometricAuth}>
+              <FontAwesome5 name="user-check" size={20} color="#808080" />
+            </TouchableOpacity>
+          )}
           <View style={styles.linksContainer}>
             <TouchableOpacity style={stylesLogin.olvidar} onPress={() => openURL('https://prismau.co/')}>
               <Text style={stylesLogin.textOlvidar}>¿Olvidaste tu contraseña?</Text>
@@ -82,6 +118,11 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
 const styles = StyleSheet.create({
   linksContainer: {
     marginTop: 20,
+    alignItems: 'center',
+  },
+  faceIdButton: {
+    marginTop: 20,
+    padding: 10,
     alignItems: 'center',
   },
 });

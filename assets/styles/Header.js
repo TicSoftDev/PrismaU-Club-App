@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
         height: 100, //Modica el tamaño de la altura del header
         elevation: 0,
         shadowOpacity: 0,
-        borderBottomWidth: 0,
+        borderBottomWidth: 0,  
     },
 });
 
