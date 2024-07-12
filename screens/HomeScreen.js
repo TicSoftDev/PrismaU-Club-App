@@ -13,23 +13,18 @@ import useNoticias from '../hooks/useNoticias';
 export default function HomeScreen() {
   const { user, credenciales } = useAuthContext();
   const { contFamiliaresSocio, contInvitadosSocio } = useCantidad();
-  const { noticias, loading, consultarNoticias } = useNoticias();
+  const { noticias, loading } = useNoticias();
 
   return (
     <ScrollView style={tw`flex-1`}>
-      <Bienvenida user={user} />
+      <Bienvenida user={user} rol={credenciales.Rol} />
       {
         credenciales.Rol == 2 || credenciales.Rol == 3 ?
           <>
             <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} />
-            <View style={tw`p-4 mb-5`}>
+            <View style={tw`p-4`}>
               <Text style={tw`text-lg font-bold mb-5`}>Panel</Text>
               <MenuOpciones />
-              {loading ? (
-                <ActivityIndicator size="large" color="#0000ff" style={tw`mt-5`} />
-              ) : (
-                noticias.length > 0 && <Noticias noticias={noticias} />
-              )}
             </View>
           </>
           :
@@ -37,6 +32,13 @@ export default function HomeScreen() {
             <Logo />
           </View>
       }
+      <View style={tw`p-4 mb-5`}>
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" style={tw`mt-5`} />
+        ) : (
+          noticias.length > 0 && <Noticias noticias={noticias} />
+        )}
+      </View>
     </ScrollView>
   )
 }
