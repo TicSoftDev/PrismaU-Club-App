@@ -52,8 +52,8 @@ export default function DataScanner({ data, rol }) {
                 }
 
                 {rol != null ?
-                    <View style={tw`bg-${data.Estado == 1 ? 'green' : 'red'}-500 w-full py-4 mt-6 items-center rounded-b-lg`}>
-                        <Text style={tw`text-lg text-white font-bold`}>{data.Estado == 1 ? 'ACTIVO' : 'INACTIVO'}</Text>
+                    <View style={tw`${data.Estado == 0 ? "bg-red-500" : data.Estado == 1 ? "bg-green-500" : data.Estado == 2 ? "bg-yellow-500" : "bg-purple-500"} w-full py-4 mt-6 items-center rounded-b-lg`}>
+                        <Text style={tw`text-lg text-white font-bold`}>{data.Estado == 0 ? "INACTIVO" : data.Estado == 1 ? "ACTIVO" : data.Estado == 2 ? "RETIRADO" : "EN MORA"}</Text>
                     </View> :
                     <View style={tw`bg-green-500 w-full py-4 mt-6 items-center`}>
                         <Text style={tw`text-lg text-white font-bold`}>INVITADO</Text>

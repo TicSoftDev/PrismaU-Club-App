@@ -24,7 +24,7 @@ export const StackNavigation = () => {
                 headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false,
             }} />
             <Stack.Screen name={Routes.HOME} component={TopNavigation} options={{
-                headerTitle: () => <HeaderNavigation />, headerLeft: () => null, headerBackTitleVisible: false,
+                headerTitle: () => <HeaderNavigation />, headerLeft: () => null, headerBackTitleVisible: false, headerTitleAlign: 'center',
                 headerRight: () => <BotonLogout />, headerStyle: styles.headerStyle,
             }} />
             <Stack.Screen name={Routes.INVITACION} component={InvitacionScreen} options={{

@@ -7,13 +7,8 @@ import imagenes from "../../assets/img/imagenes";
 import { styles } from "../../assets/styles/Carnet";
 import { servidorBack } from "../../routes/Routes";
 
-export default function Carnet({
-  user,
-  primerNombre,
-  primerApellido,
-  rol,
-  data,
-}) {
+export default function Carnet({ user, primerNombre, primerApellido, rol, data, }) {
+
   return (
     <View style={tw`flex-1 justify-center items-center bg-white`}>
       <View style={styles.card}>
@@ -37,6 +32,13 @@ export default function Carnet({
           style={[tw`flex-1`, { width: "80%" }]}
           contentContainerStyle={{ flexGrow: 1 }}
         >
+          {user.Estado != 1 && (
+            <View style={tw`flex-1 items-center justify-center ${user.Estado == 0 ? "bg-red-500" : user.Estado == 2 ? "bg-yellow-500" : "bg-purple-500"} py-2`}>
+              <Text style={tw`text-2xl font-bold text-white text-center`}>
+                {user.Estado == 0 ? "INACTIVO" : user.Estado == 2 ? "RETIRADO" : "EN MORA"}
+              </Text>
+            </View>
+          )}
           <View style={tw`flex-1 bg-gray-100 pt-4`}>
             <View style={tw`flex flex-row justify-center items-center mt-4`}>
               <Image
@@ -78,7 +80,7 @@ export default function Carnet({
                 {user.Documento ? user.Documento : ""}
               </Text>
             </View>
-            {user.Estado == 0 && (
+            {/* 
               <View
                 style={tw`bg-red-500 w-full py-4 mt-6 flex justify-center items-center`}
               >
@@ -86,12 +88,14 @@ export default function Carnet({
                   Inactivo. Comuníquese con la administración.
                 </Text>
               </View>
-            )}
-
-            <View style={tw`items-end mt-10 mr-6`}>
+            )} */}
+            {/* <View style={tw`flex flex-row justify-between items-center mt-10`}>
+              <Text style={tw`border border-red-500 p-2 text-2xl text-red-500 font-bold ml-6`}>Retirado</Text> */}
+            <View style={tw`items-end mr-6 mt-10`}>
               <QRCode color="black" value={data} size={100} />
             </View>
-            <View style={tw`flex flex-row justify-end items-end mt-6 mr-4`}>
+            {/* </View> */}
+            <View style={tw`flex flex-row justify-end items-end mt-6 mr-4 pb-4`}>
               <Image
                 source={imagenes.logoPrisma}
                 style={tw`h-6 w-8 mr-1`}
