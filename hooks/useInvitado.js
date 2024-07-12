@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { useAuthContext } from '../context/AuthContext';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
-import { createInvitado } from '../services/InvitadosService';
-import { format } from 'date-fns';
+import { addHours } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import { es } from 'date-fns/locale';
+import { useState } from 'react';
+import { useAuthContext } from '../context/AuthContext';
+import { createInvitado } from '../services/InvitadosService';
+import { alertSucces, alertWarning } from '../utilities/toast/Toast';
 
 export default function useInvitado() {
 
@@ -20,9 +21,12 @@ export default function useInvitado() {
         Documento: "",
         Status: false,
     });
-    const vencimiento = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-    const fechaVencimiento = format(vencimiento, "PPpp", { locale: es });
-    const datosQR = { usuario: invitacion, vencimiento };
+    const ahora = new Date();
+    const zonaHoraria = 'America/Bogota';
+    const vencimiento = addHours(ahora, 12);
+    const fechaVencimientoTexto = formatInTimeZone(vencimiento, zonaHoraria, 'PPpp', { locale: es });
+    const fechaVencimiento = vencimiento.toISOString();
+    const datosQR = { usuario: invitacion, fechaVencimiento };
     const dataString = JSON.stringify(datosQR);
 
     const recargar = () => {
@@ -70,6 +74,6 @@ export default function useInvitado() {
     };
 
     return {
-        dataString, invitado, generado, loading, fechaVencimiento, handleChange, handleSubmit, recargar
+        dataString, invitado, generado, loading, fechaVencimientoTexto, handleChange, handleSubmit, recargar
     }
 }

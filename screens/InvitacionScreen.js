@@ -5,7 +5,7 @@ import useInvitado from '../hooks/useInvitado';
 
 export default function InvitacionScreen() {
 
-  const { invitado, dataString, generado, loading, fechaVencimiento, handleChange, handleSubmit, recargar } = useInvitado();
+  const { invitado, dataString, generado, loading, fechaVencimientoTexto, handleChange, handleSubmit, recargar } = useInvitado();
   return (
     <>
       {
@@ -14,7 +14,7 @@ export default function InvitacionScreen() {
             handleSubmit={handleSubmit} loading={loading} />
           :
           <CodigoInvitacion dataString={dataString} recargar={recargar}
-            fechaVencimiento={fechaVencimiento} />
+            fechaVencimiento={fechaVencimientoTexto} />
       }
     </>
   )

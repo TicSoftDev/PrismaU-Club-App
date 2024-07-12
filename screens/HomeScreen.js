@@ -33,7 +33,7 @@ export default function HomeScreen() {
             </View>
           </>
           :
-          <View style={tw`p-4 mb-5`}>
+          <View style={tw`p-4 mt-10 mb-5`}>
             <Logo />
           </View>
       }
