@@ -34,14 +34,14 @@ export default function DataResult({ data }) {
                             <Text style={tw`text-lg text-green-700`}>{data.apellidos}</Text>
                             <Text style={tw`text-xl font-bold text-green-700 mt-5`}>{data.tipoDocumento} {data.documento}</Text>
                         </View>
-                        <View style={tw`flex-row items-center justify-between p-5 rounded-b-lg ${data.estado == 1 ? 'bg-green-500' : 'bg-red-500'} shadow`}>
+                        <View style={tw`flex-row items-center justify-between p-5 rounded-b-lg ${data.estado == 0 ? "bg-red-600" : data.estado == 1 ? "bg-green-500" : data.estado == 2 ? "bg-yellow-500" : "bg-purple-500"} shadow`}>
                             <View style={tw`flex-row`}>
                                 <FontAwesome5 name="user-cog" size={24} color="white" style={tw`mr-2 ml-2`} />
                                 <Text style={tw`text-lg text-white font-semibold`}>{rol}</Text>
                             </View>
-                            <View style={tw`flex-row`}>
+                            <View style={tw`flex-row items-center`}>
                                 <FontAwesome5 name="eye" size={24} color="white" style={tw`mr-2 ml-2`} />
-                                <Text style={tw`text-lg text-white font-semibold`}>{data.estado == 1 ? 'Activo' : 'Inactivo'}</Text>
+                                <Text style={tw`text-lg text-white font-semibold`}>{data.estado == 0 ? 'Inactivo' : data.estado == 1 ? 'Activo' : data.estado == 2 ? 'Retirado' : 'En Mora'}</Text>
                             </View>
                         </View>
                     </View>
