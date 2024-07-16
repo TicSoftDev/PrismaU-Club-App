@@ -4,7 +4,8 @@ import tw from 'tailwind-react-native-classnames';
 import Bienvenida from '../components/home/Bienvenida';
 import CardsContadores from '../components/home/CardsContadores';
 import Logo from '../components/home/Logo';
-import MenuOpciones from '../components/home/MenuOpciones';
+import MenuBienestar from '../components/home/MenuBienestar';
+import MenuPortal from '../components/home/MenuPortal';
 import Noticias from '../components/home/Noticias';
 import { useAuthContext } from '../context/AuthContext';
 import useCantidad from '../hooks/useCantidad';
@@ -19,12 +20,16 @@ export default function HomeScreen() {
     <ScrollView style={tw`flex-1`}>
       <Bienvenida user={user} rol={credenciales.Rol} />
       {
-        credenciales.Rol == 2 || credenciales.Rol == 3 ?
+        (credenciales.Rol == 2 || credenciales.Rol == 3) ?
           <>
             <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} />
             <View style={tw`p-4`}>
-              <Text style={tw`text-lg font-bold mb-5`}>Panel</Text>
-              <MenuOpciones />
+              <Text style={tw`text-lg font-bold mb-5`}>Portal autogestión</Text>
+              <MenuPortal />
+            </View>
+            <View style={tw`p-4`}>
+              <Text style={tw`text-lg font-bold mb-5`}>Bienestar laboral</Text>
+              <MenuBienestar />
             </View>
           </>
           :
@@ -32,13 +37,13 @@ export default function HomeScreen() {
             <Logo />
           </View>
       }
-      <View style={tw`p-4 mb-5`}>
+      {/* <View style={tw`p-4 mb-5`}>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" style={tw`mt-5`} />
         ) : (
           noticias.length > 0 && <Noticias noticias={noticias} />
         )}
-      </View>
+      </View> */}
     </ScrollView>
   )
 }
