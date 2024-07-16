@@ -17,7 +17,7 @@ export default function MenuBienestar() {
                 </View>
                 <Text style={[tw`mt-1 font-bold`, { fontSize: Platform.OS === 'ios' ? 10 : 13 }]}>Encuestas</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.INVITACION)}>
+            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.EVENTOS)}>
                 <View style={tw`w-16 h-16 bg-blue-900 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="user-clock" size={25} color="#ffffff" />
                 </View>

@@ -5,7 +5,6 @@ import tw from 'tailwind-react-native-classnames';
 export default function Noticias({ noticias }) {
     return (
         <>
-            <Text style={tw`text-lg font-bold mb-1`}>Noticias</Text>
             {noticias.map((noticia) => (
                 <View style={[tw`bg-white p-4 rounded-3xl shadow-lg mt-2`]} key={noticia.id}>
                     <Text style={tw`text-base font-bold mb-4`}>{noticia.Titulo}</Text>
