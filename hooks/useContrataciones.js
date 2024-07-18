@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { createSolicitud } from '../services/solicitudService';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
 import { Keyboard } from 'react-native';
-import { useAuthContext } from '../context/AuthContext';
+import { registrarse } from '../services/AuthService';
+import { alertSucces, alertWarning } from '../utilities/toast/Toast';
 
-function useSolicitudes() {
+function useContrataciones() {
 
-    const { token } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [solicitud, setSolicitud] = useState({
         'Nombres': '',
@@ -46,7 +44,7 @@ function useSolicitudes() {
                 return alertWarning('Hay campos vacios');
             }
             setLoading(true);
-            const data = await createSolicitud(solicitud, token);
+            const data = await registrarse(solicitud);
             setLoading(false);
             if (data.status) {
                 recargar();
@@ -56,6 +54,7 @@ function useSolicitudes() {
             }
         } catch (error) {
             setLoading(false);
+            console.log(error.message);
             alertWarning("solicitud" + error.message);
         }
     }
@@ -65,4 +64,4 @@ function useSolicitudes() {
     }
 }
 
-export default useSolicitudes
+export default useContrataciones

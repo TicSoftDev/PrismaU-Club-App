@@ -13,6 +13,7 @@ import FamiliaresScreen from "../screens/FamiliaresScreen";
 import EspaciosScreen from "../screens/EspaciosScreen";
 import RegistroScreen from "../screens/RegistroScreen";
 import EventosScreen from "../screens/EventosScreen";
+import SolicitudesScreen from "../screens/SolicitudesScreen";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,10 @@ export const StackNavigation = () => {
                 headerRight: () => <BotonLogout />
             }} />
             <Stack.Screen name={Routes.EVENTOS} component={EventosScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                headerRight: () => <BotonLogout />
+            }} />
+            <Stack.Screen name={Routes.SOLICITUDES} component={SolicitudesScreen} options={{
                 headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
                 headerRight: () => <BotonLogout />
             }} />

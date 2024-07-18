@@ -31,7 +31,7 @@ export default function MenuPortal() {
                 </View>
                 <Text style={[tw`mt-1 font-bold`, { fontSize: Platform.OS === 'ios' ? 10 : 13 }]}>Reservas</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.ESPACIO)}>
+            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.SOLICITUDES)}>
                 <View style={tw`w-16 h-16 bg-green-600 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="envelope-open-text" size={25} color="#ffffff" />
                 </View>
