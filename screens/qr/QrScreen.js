@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { format, addHours } from 'date-fns';
+import { addHours } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import es from 'date-fns/locale/es';
-import { ActivityIndicator, View, Text } from 'react-native';
-import CodigoQr from '../components/qr/CodigoQr';
-import { useAuthContext } from '../context/AuthContext';
+import React, { useCallback, useState } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
+import CodigoQr from '../../components/qr/CodigoQr';
+import { useAuthContext } from '../../context/AuthContext';
 
 export default function QrScreen() {
   const { user, credenciales } = useAuthContext();
@@ -40,7 +40,7 @@ export default function QrScreen() {
       };
 
       const dataString = JSON.stringify(datosQR);
-      
+
       setDataString(dataString);
       setFechaVencimientoTexto(fechaVencimientoTexto);
       setIsLoading(false);

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ActivityIndicator, Button, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import DataScanner from '../components/qr/DataScanner';
-import QrExpirado from '../components/qr/QrExpirado';
-import ScannerQr from '../components/qr/ScannerQr';
-import useQr from '../hooks/useQr';
+import DataScanner from '../../components/qr/DataScanner';
+import QrExpirado from '../../components/qr/QrExpirado';
+import ScannerQr from '../../components/qr/ScannerQr';
+import useQr from '../../hooks/useQr';
 
 export default function ScanQrScreen() {
   const {

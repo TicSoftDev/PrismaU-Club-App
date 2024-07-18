@@ -1,9 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
-import useFamiliar from '../hooks/useFamiliar';
-import CardsFamiliares from '../components/familiares/CardsFamiliares';
+import CardsFamiliares from '../../components/familiares/CardsFamiliares';
+import useFamiliar from '../../hooks/useFamiliar';
 
 export default function FamiliaresScreen() {
 

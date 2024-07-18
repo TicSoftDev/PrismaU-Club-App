@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import CardsEspacios from '../components/espacios/CardsEspacios';
-import useEspacio from '../hooks/useEspacio';
+import CardsEspacios from '../../components/espacios/CardsEspacios';
+import useEspacio from '../../hooks/useEspacio';
 
 export default function EspaciosScreen() {
 

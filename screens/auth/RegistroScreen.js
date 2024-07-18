@@ -1,6 +1,6 @@
 import React from 'react';
-import FormRegistro from '../components/registro/FormRegistro';
-import useContrataciones from '../hooks/useContrataciones';
+import FormRegistro from '../../components/registro/FormRegistro';
+import useContrataciones from '../../hooks/useContrataciones';
 
 export default function RegistroScreen() {
 

@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import imagenes from '../assets/img/imagenes';
+import imagenes from '../../assets/img/imagenes';
 
 export default function SplashScreen() {
     return (

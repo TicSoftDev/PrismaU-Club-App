@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
-import { useAuthContext } from '../../context/AuthContext';
 import imagenes from '../../assets/img/imagenes';
+import { useAuthContext } from '../../context/AuthContext';
 import { servidorBack } from '../../routes/Routes';
 
 const FormProfile = ({ toggleModal }) => {

@@ -4,13 +4,13 @@ import React, { useEffect } from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useAuthContext } from "../context/AuthContext";
 import { Routes } from "../routes/Routes";
-import CarnetScreen from "../screens/CarnetScreen";
-import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import QrScreen from "../screens/QrScreen";
-import ScanQrScreen from "../screens/ScanQrScreen";
-import SearchScreen from "../screens/SearchScreen";
-import EntradasScreen from "../screens/EntradasScreen";
+import HomeScreen from "../screens/home/HomeScreen";
+import CarnetScreen from "../screens/carnet/CarnetScreen";
+import QrScreen from "../screens/qr/QrScreen";
+import ScanQrScreen from "../screens/qr/ScanQrScreen";
+import SearchScreen from "../screens/buscador/SearchScreen";
+import EntradasScreen from "../screens/entradas/EntradasScreen";
+import ProfileScreen from "../screens/perfil/ProfileScreen";
 const Tab = createMaterialTopTabNavigator();
 
 export const TopNavigation = () => {

@@ -1,13 +1,13 @@
-import React from 'react';
-import { Camera } from 'expo-camera';
-import { View } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { Camera } from 'expo-camera';
+import React from 'react';
+import { View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 
 export default function ScannerQr({ handleBarCodeScanned, scanned }) {
 
     const isFocused = useIsFocused();
-    
+
     return (
         <View style={tw`flex-1`}>
             {isFocused && (

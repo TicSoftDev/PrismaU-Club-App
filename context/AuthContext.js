@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 import { createContext, useContext, useEffect, useState } from "react";
 import { validarSesion } from "../services/AuthService";
 

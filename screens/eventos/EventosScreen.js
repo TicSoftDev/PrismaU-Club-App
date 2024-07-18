@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import Noticias from '../components/eventos/Noticias';
-import useNoticias from '../hooks/useNoticias';
+import Noticias from '../../components/eventos/Noticias';
+import useNoticias from '../../hooks/useNoticias';
 
 const EventosScreen = () => {
 

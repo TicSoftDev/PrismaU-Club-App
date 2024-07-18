@@ -1,9 +1,9 @@
-import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
-import { DataTable } from 'react-native-paper'
-import tw from 'tailwind-react-native-classnames'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import React from 'react'
+import { ScrollView, View } from 'react-native'
+import { DataTable } from 'react-native-paper'
+import tw from 'tailwind-react-native-classnames'
 
 export default function DataTableEntradas({ pagedEntradas, page, setPage, totalPages }) {
 

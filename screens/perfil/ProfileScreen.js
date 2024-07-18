@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import FormProfile from '../components/profile/FormProfile';
-import ModalPassword from '../components/profile/ModalPassword';
-import useUsuario from '../hooks/useUsuario';
+import React from 'react';
+import FormProfile from '../../components/profile/FormProfile';
+import ModalPassword from '../../components/profile/ModalPassword';
+import useUsuario from '../../hooks/useUsuario';
 
 export default function ProfileScreen() {
 

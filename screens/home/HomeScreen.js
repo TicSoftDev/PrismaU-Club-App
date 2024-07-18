@@ -1,13 +1,13 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import Bienvenida from '../components/home/Bienvenida';
-import CardsContadores from '../components/home/CardsContadores';
-import Logo from '../components/home/Logo';
-import MenuBienestar from '../components/home/MenuBienestar';
-import MenuPortal from '../components/home/MenuPortal';
-import { useAuthContext } from '../context/AuthContext';
-import useCantidad from '../hooks/useCantidad';
+import Bienvenida from '../../components/home/Bienvenida';
+import CardsContadores from '../../components/home/CardsContadores';
+import Logo from '../../components/home/Logo';
+import MenuBienestar from '../../components/home/MenuBienestar';
+import MenuPortal from '../../components/home/MenuPortal';
+import { useAuthContext } from '../../context/AuthContext';
+import useCantidad from '../../hooks/useCantidad';
 
 export default function HomeScreen() {
   const { user, credenciales } = useAuthContext();

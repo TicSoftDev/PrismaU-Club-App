@@ -1,10 +1,9 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import BuscadorEntrada from '../components/entradas/BuscadorEntrada';
-import DataTableEntradas from '../components/entradas/DataTableEntradas';
-import useAccesos from '../hooks/useAccesos';
-import { Text } from 'react-native';
+import BuscadorEntrada from '../../components/entradas/BuscadorEntrada';
+import DataTableEntradas from '../../components/entradas/DataTableEntradas';
+import useAccesos from '../../hooks/useAccesos';
 
 const itemsPerPage = 8;
 

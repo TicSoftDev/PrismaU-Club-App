@@ -1,10 +1,9 @@
-import { FontAwesome6 } from '@expo/vector-icons';
 import React from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 import imagenes from '../../assets/img/imagenes';
 import { servidorBack } from '../../routes/Routes';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
 export default function DataScanner({ data, rol }) {

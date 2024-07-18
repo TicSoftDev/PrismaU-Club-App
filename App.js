@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { AuthProvider } from './context/AuthContext';
 import useApp from './hooks/useApp';
 import { StackNavigation } from './navigation/StackNavigation';
-import SplashScreen from './screens/SplashScreen';
+import SplashScreen from './screens/splash/SplashScreen';
 
 
 Ionicons.loadFont();

@@ -1,7 +1,7 @@
 import React from 'react';
-import CodigoInvitacion from '../components/invitados/CodigoInvitacion';
-import FormInvitacion from '../components/invitados/FormInvitacion';
-import useInvitado from '../hooks/useInvitado';
+import CodigoInvitacion from '../../components/invitados/CodigoInvitacion';
+import FormInvitacion from '../../components/invitados/FormInvitacion';
+import useInvitado from '../../hooks/useInvitado';
 
 export default function InvitacionScreen() {
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { ActivityIndicator, Button, Image, SafeAreaView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import Buscador from '../components/search/Buscador';
-import DataResult from '../components/search/DataResult';
-import useBuscador from '../hooks/useBuscador';
-import imagenes from '../assets/img/imagenes';
+import imagenes from '../../assets/img/imagenes';
+import Buscador from '../../components/search/Buscador';
+import DataResult from '../../components/search/DataResult';
+import useBuscador from '../../hooks/useBuscador';
 
-export default function SearchBar() {
+export default function SearchScreen() {
     const { user, busqueda, handleChange, handleBusqueda, isLoading, searched, newSearch } = useBuscador();
 
     return (

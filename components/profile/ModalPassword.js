@@ -1,7 +1,7 @@
-import { View, Text, Modal, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import React from 'react';
-import tw from 'tailwind-react-native-classnames';
+import { ActivityIndicator, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import tw from 'tailwind-react-native-classnames';
 
 export default function ModalPassword({ loading, modalVisible, toggleModal, password, handleChange, handleSubmit }) {
     return (

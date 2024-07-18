@@ -1,11 +1,11 @@
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
 import React, { useRef } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import tw from 'tailwind-react-native-classnames';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
 import { captureRef } from 'react-native-view-shot';
+import tw from 'tailwind-react-native-classnames';
 
 export default function CodigoInvitacion({ dataString, fechaVencimiento, recargar }) {
     const viewRef = useRef();

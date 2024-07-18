@@ -1,19 +1,16 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { Image, Text, View } from "react-native";
-import tw from "tailwind-react-native-classnames";
-import imagenes from "../assets/img/imagenes";
-import { Routes } from "../routes/Routes";
-import LoginScreen from "../screens/LoginScreen";
-import { TopNavigation } from "./TopNavigation";
-import InvitacionScreen from "../screens/InvitacionScreen";
-import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { styles } from "../assets/styles/Header";
+import { Routes } from "../routes/Routes";
+import LoginScreen from "../screens/auth/LoginScreen";
+import RegistroScreen from "../screens/auth/RegistroScreen";
+import EspaciosScreen from "../screens/espacios/EspaciosScreen";
+import EventosScreen from "../screens/eventos/EventosScreen";
+import FamiliaresScreen from "../screens/familiares/FamiliaresScreen";
+import InvitacionScreen from "../screens/invitaciones/InvitacionScreen";
+import SolicitudesScreen from "../screens/solicitudes/SolicitudesScreen";
 import BotonLogout from "../utilities/Header/BotonLogout";
-import FamiliaresScreen from "../screens/FamiliaresScreen";
-import EspaciosScreen from "../screens/EspaciosScreen";
-import RegistroScreen from "../screens/RegistroScreen";
-import EventosScreen from "../screens/EventosScreen";
-import SolicitudesScreen from "../screens/SolicitudesScreen";
+import HeaderNavigation from "../utilities/Header/HeaderNavigation";
+import { TopNavigation } from "./TopNavigation";
 
 const Stack = createStackNavigator();
 

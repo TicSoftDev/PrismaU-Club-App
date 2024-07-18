@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import Carnet from '../components/carnet/Carnet';
-import { useAuthContext } from '../context/AuthContext';
+import Carnet from '../../components/carnet/Carnet';
+import { useAuthContext } from '../../context/AuthContext';
 
 export default function CarnetScreen() {
   const { user, credenciales } = useAuthContext();
