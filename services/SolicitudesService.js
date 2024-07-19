@@ -17,9 +17,23 @@ export const createSolicitudes = async (token, data) => {
     }
 };
 
-export const getSolicitudes = async (token) => {
+export const getSolicitudes = async (token, id) => {
     try {
-        const res = await axios.get(URL, {
+        const res = await axios.get(URL + "/user/" + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+};
+
+export const getSolicitud = async (token, id) => {
+    try {
+        const res = await axios.get(URL + "/" + id, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

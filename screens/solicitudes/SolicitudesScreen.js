@@ -1,25 +1,30 @@
 import React from 'react'
-import FormSolicitud from '../../components/solicitudes/FormSolicitud'
-import useSolicitudes from '../../hooks/useSolicitudes'
-import ContainerFormulario from '../../utilities/ContainerForm/ContainerFormulario'
-import DataSolicitudes from '../../components/solicitudes/DataSolicitudes'
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
-import { Text } from 'react-native'
-import { View } from 'react-native'
+import DataSolicitudes from '../../components/solicitudes/DataSolicitudes'
+import useSolicitudes from '../../hooks/useSolicitudes'
 
 const SolicitudesScreen = () => {
 
-  const { titulo, loading, solicitudes, page, pagedSolicitudes, solicitud, totalPages,
-    handleChange, handleSubmit, setPage } = useSolicitudes();
+  const { loading, page, pagedSolicitudes, totalPages, setPage, goCrear, goDetalle } = useSolicitudes();
 
   return (
-    <>
-      <View style={tw`h-20 w-full bg-green-500 pt-8 px-4`}>
+    <View style={tw`flex-1`}>
+      <View style={tw`flex flex-row justify-between items-center h-20 w-full bg-green-500 px-4`}>
         <Text style={tw`text-xl font-bold text-white`}>Solicitudes</Text>
+
       </View>
-      <DataSolicitudes page={page} setPage={setPage} totalPages={totalPages} pagedSolicitudes={pagedSolicitudes} />
-      {/* <FormSolicitud loading={loading} solicitud={solicitud} handleChange={handleChange} handleSubmit={handleSubmit} /> */}
-    </>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" style={tw`mt-5`} />
+      ) : <>
+        <DataSolicitudes page={page} setPage={setPage} totalPages={totalPages} pagedSolicitudes={pagedSolicitudes}
+          goDetalle={goDetalle} />
+        <TouchableOpacity style={tw`w-full bg-green-500 p-2`} onPress={goCrear}>
+          <Text style={tw`font-bold text-white text-center uppercase`}>Nueva Solicitud</Text>
+        </TouchableOpacity>
+      </>}
+
+    </View>
   )
 }
 

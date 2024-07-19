@@ -27,7 +27,7 @@ export default function FormSolicitud({ solicitud, handleChange, handleSubmit, l
                 </ModalSelector>
             </View>
             <Text style={tw`text-sm font-bold m-2`}>Especifique su solicitud:</Text>
-            <TextInput multiline numberOfLines={20} placeholder="Ingrese los apellidos"
+            <TextInput multiline numberOfLines={20} placeholder="Ingrese el detalle de la solicitud"
                 style={[tw`flex-1 rounded-lg border-2 border-gray-200 bg-gray-100 px-4 py-2`, { height: 200, textAlignVertical: 'top' }]}
                 onChangeText={(text) => handleChange(text, 'Descripcion')} value={solicitud.Descripcion}
             />

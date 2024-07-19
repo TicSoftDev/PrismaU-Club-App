@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
-import { createSolicitudes, getSolicitudes } from '../services/SolicitudesService';
+import { Routes } from '../routes/Routes';
+import { createSolicitudes, getSolicitud, getSolicitudes } from '../services/SolicitudesService';
 import { alertSucces, alertWarning } from '../utilities/toast/Toast';
 
 const useSolicitudes = () => {
 
-    const titulo = 'Solicitudes';
+    const titulo = 'Crear Solicitud';
+    const titulo2 = 'Detalle Solicitud';
     const itemsPerPage = 6;
+    const navigation = useNavigation();
     const { token, credenciales } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [solicitudes, setSolicitudes] = useState([]);
@@ -29,6 +33,15 @@ const useSolicitudes = () => {
         setLoading(false);
     };
 
+    const goCrear = () => {
+        recargar();
+        navigation.navigate(Routes.CREAR_SOLICITUD);
+    }
+
+    const goDetalle = (id) => {
+        navigation.navigate(Routes.DETALLE_SOLICITUD, { id });
+    };
+
     const handleChange = (value, name) => {
         setSolicitud({
             ...solicitud,
@@ -47,6 +60,8 @@ const useSolicitudes = () => {
             if (data.status) {
                 alertSucces("Solicitud enviada");
                 recargar();
+                // await consultarSolicitudes();
+                navigation.navigate(Routes.SOLICITUDES);
             } else {
                 alertWarning("No se pudo registrar");
             }
@@ -59,7 +74,7 @@ const useSolicitudes = () => {
     const consultarSolicitudes = async () => {
         try {
             setLoading(true);
-            const data = await getSolicitudes(token);
+            const data = await getSolicitudes(token, credenciales.id);
             setLoading(false);
             setSolicitudes(data);
         } catch (error) {
@@ -68,9 +83,23 @@ const useSolicitudes = () => {
         }
     }
 
-    useEffect(() => {
-        consultarSolicitudes();
-    }, [])
+    const consultarSolicitud = async (id) => {
+        try {
+            setLoading(true);
+            const data = await getSolicitud(token, id);
+            setLoading(false);
+            setSolicitud(data);
+        } catch (error) {
+            setLoading(false);
+            alertWarning('get entradas', error.message);
+        }
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            consultarSolicitudes();
+        }, [])
+    );
 
     useEffect(() => {
         const startIndex = page * itemsPerPage;
@@ -80,7 +109,7 @@ const useSolicitudes = () => {
 
     return {
         titulo, loading, solicitud, solicitudes, totalPages: Math.ceil(solicitudes.length / itemsPerPage), page,
-        pagedSolicitudes, setPage, handleChange, handleSubmit
+        pagedSolicitudes, titulo2, setPage, handleChange, handleSubmit, goCrear, goDetalle, consultarSolicitud
     }
 }
 

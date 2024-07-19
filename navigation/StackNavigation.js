@@ -11,6 +11,8 @@ import SolicitudesScreen from "../screens/solicitudes/SolicitudesScreen";
 import BotonLogout from "../utilities/Header/BotonLogout";
 import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { TopNavigation } from "./TopNavigation";
+import DetalleSolicitudScreen from "../screens/solicitudes/DetalleSolicitudScreen";
+import CrearSolicitudScreen from "../screens/solicitudes/CrearSolicitudScreen";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +45,14 @@ export const StackNavigation = () => {
                 headerRight: () => <BotonLogout />
             }} />
             <Stack.Screen name={Routes.SOLICITUDES} component={SolicitudesScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                headerRight: () => <BotonLogout />
+            }} />
+            <Stack.Screen name={Routes.CREAR_SOLICITUD} component={CrearSolicitudScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                headerRight: () => <BotonLogout />
+            }} />
+            <Stack.Screen name={Routes.DETALLE_SOLICITUD} component={DetalleSolicitudScreen} options={{
                 headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
                 headerRight: () => <BotonLogout />
             }} />
