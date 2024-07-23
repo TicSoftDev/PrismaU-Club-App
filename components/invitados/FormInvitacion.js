@@ -1,11 +1,13 @@
-import React from 'react';
-import { ActivityIndicator, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ModalSelector from 'react-native-modal-selector';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 import { styles } from '../../assets/styles/Select';
 
 export default function FormInvitacion({ invitado, handleChange, handleSubmit, loading }) {
+    const [selectedDocType, setSelectedDocType] = useState(invitado.TipoDocumento || 'Escoja una opción');
 
     const data = [
         { key: 'CC', label: 'Cédula de Ciudadanía' },
@@ -14,7 +16,12 @@ export default function FormInvitacion({ invitado, handleChange, handleSubmit, l
     ];
 
     return (
-        <ScrollView style={tw`flex-1 bg-gray-100`}>
+        <KeyboardAwareScrollView
+            style={tw`flex-1 bg-gray-100`}
+            enableOnAndroid={true}
+            extraScrollHeight={20}
+            keyboardShouldPersistTaps="handled"
+        >
             <View style={tw`absolute h-1/2 w-full bg-green-500`} />
             <View style={tw`h-20 w-full bg-green-500 pt-12 px-4`}>
                 <Text style={tw`text-2xl font-bold text-white`}>Formulario de invitación</Text>
@@ -42,15 +49,34 @@ export default function FormInvitacion({ invitado, handleChange, handleSubmit, l
                         />
                     </View>
                     <Text style={tw`text-sm font-bold m-2`}>Tipo Documento</Text>
-                    <View style={tw`flex flex-row items-center w-full h-10 rounded-full border-2 border-gray-200 bg-gray-100 mb-2`}>
-                        <FontAwesome5 name="id-card" style={tw`mr-1 px-4 text-lg text-gray-400`} />
-                        <ModalSelector data={data} initValue="Escoja una opción" supportedOrientations={['landscape']} accessible={true} scrollViewAccessibilityLabel={'Scrollable options'} cancelButtonAccessibilityLabel={'Cancel Button'} cancelText='Cancelar'
-                            optionTextStyle={styles.optionTextStyle} optionContainerStyle={styles.optionContainerStyle} optionStyle={styles.optionStyle} cancelTextStyle={styles.cancelTextStyle} cancelStyle={styles.cancelStyle}
-                            onChange={(option) => handleChange(option.key, 'TipoDocumento')}>
-                            <TextInput style={{ borderWidth: 0 }} editable={false} placeholder="Escoja una opción"
-                                value={invitado.TipoDocumento} />
-                        </ModalSelector>
-                    </View>
+                    <ModalSelector
+                        data={data}
+                        initValue="Escoja una opción"
+                        supportedOrientations={['landscape', 'portrait']}
+                        accessible={true}
+                        scrollViewAccessibilityLabel={'Scrollable options'}
+                        cancelButtonAccessibilityLabel={'Cancel Button'}
+                        cancelText='Cancelar'
+                        optionTextStyle={styles.optionTextStyle}
+                        optionContainerStyle={styles.optionContainerStyle}
+                        optionStyle={styles.optionStyle}
+                        cancelTextStyle={styles.cancelTextStyle}
+                        cancelStyle={styles.cancelStyle}
+                        onChange={(option) => {
+                            setSelectedDocType(option.label);
+                            handleChange(option.key, 'TipoDocumento');
+                        }}
+                    >
+                        <View style={tw`flex flex-row items-center w-full h-10 rounded-full border-2 border-gray-200 bg-gray-100 mb-2`}>
+                            <FontAwesome5 name="id-card" style={tw`mr-1 px-4 text-lg text-gray-400`} />
+                            <TextInput
+                                placeholder="Escoja una opción"
+                                style={tw`flex-1 text-sm`}
+                                value={selectedDocType}
+                                editable={false}
+                            />
+                        </View>
+                    </ModalSelector>
                     <Text style={tw`text-sm font-bold m-2`}>Documento</Text>
                     <View style={tw`flex flex-row items-center w-full h-10 rounded-full border-2 border-gray-200 bg-gray-100 mb-2`}>
                         <FontAwesome5 name="id-card" style={tw`mr-1 px-4 text-lg text-gray-400`} />
@@ -73,11 +99,11 @@ export default function FormInvitacion({ invitado, handleChange, handleSubmit, l
                     </View>
                     <TouchableOpacity style={tw`mt-4 bg-green-500 p-2 rounded shadow`} onPress={handleSubmit}>
                         <Text style={tw`text-white text-center`}>
-                            {loading ? <ActivityIndicator color={'#fff'} size={'large'} /> : 'Generar QR'}
+                            {loading ? <ActivityIndicator color={'#fff'} size={'large'} /> : 'Generar QR de Invitación'}
                         </Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 }

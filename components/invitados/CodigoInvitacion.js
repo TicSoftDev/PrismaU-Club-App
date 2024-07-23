@@ -39,6 +39,11 @@ export default function CodigoInvitacion({ dataString, fechaVencimiento, recarga
                     <Text style={tw`text-lg mt-4 font-bold`}>Vence: {fechaVencimiento}</Text>
                 </View>
             </View>
+            <View style={tw`px-4 pb-8 w-full`}>
+                <Text style={tw`text-lg text-center`}>
+                    Recuerde que para acceder a las instalaciones usted deberá acompañar este QR con su identificación (CC, TI).
+                </Text>
+            </View>
             <TouchableOpacity onPress={recargar} style={tw`flex flex-row justify-center items-center bg-gray-200 p-3 rounded-full mx-5`}>
                 <FontAwesome5 name="qrcode" size={20} color="black" />
                 <Text style={tw`text-lg font-bold ml-2`}>Generar otra invitación</Text>
