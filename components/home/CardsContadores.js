@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 
-export default function CardsContadores({ familiares, invitados }) {
+export default function CardsContadores({ familiares, invitados, reservas, solicitudes }) {
     return (
         <View style={tw`px-1 mt-5 w-full`}>
             <View style={tw`flex-row justify-between flex-wrap bg-white rounded-lg p-2 shadow-lg`}>
@@ -25,14 +25,14 @@ export default function CardsContadores({ familiares, invitados }) {
                     <Text style={tw`text-xs text-center font-bold text-yellow-500 mb-0.5`}>Reservas</Text>
                     <View style={tw`flex flex-row justify-around items-center`}>
                         <FontAwesome5 name="map-marked-alt" size={18} style={tw`text-yellow-500`} />
-                        <Text style={tw`text-sm font-bold text-yellow-500`}>1</Text>
+                        <Text style={tw`text-sm font-bold text-yellow-500`}>{reservas}</Text>
                     </View>
                 </View>
                 <View style={[tw`flex-col border-2 border-green-500 rounded-lg p-2`, { width: 88 }]}>
                     <Text style={tw`text-xs text-center font-bold text-green-600 mb-0.5`}>Solicitudes</Text>
                     <View style={tw`flex flex-row justify-around items-center`}>
                         <FontAwesome5 name="envelope-open-text" size={18} style={tw`text-green-500`} />
-                        <Text style={tw`text-sm font-bold text-green-600`}>1</Text>
+                        <Text style={tw`text-sm font-bold text-green-600`}>{solicitudes}</Text>
                     </View>
                 </View>
             </View>

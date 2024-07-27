@@ -30,6 +30,20 @@ export const getReservas = async (token, id) => {
     }
 };
 
+export const getCantidadReservasSocio = async (token, id) => {
+    try {
+        const res = await axios.get(URL + "/cantidad/" + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+}
+
 export const deleteReserva = async (token, id) => {
     try {
         const res = await axios.delete(URL + "/" + id, {

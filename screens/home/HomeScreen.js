@@ -11,7 +11,7 @@ import useCantidad from '../../hooks/useCantidad';
 
 export default function HomeScreen() {
   const { user, credenciales } = useAuthContext();
-  const { contFamiliaresSocio, contInvitadosSocio } = useCantidad();
+  const { contFamiliaresSocio, contInvitadosSocio, contReservasSocio, contSolicitudesSocio } = useCantidad();
 
   return (
     <ScrollView style={tw`flex-1`}>
@@ -19,7 +19,7 @@ export default function HomeScreen() {
       {
         (credenciales.Rol == 2 || credenciales.Rol == 3) ?
           <>
-            <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} />
+            <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} solicitudes={contSolicitudesSocio} reservas={contReservasSocio} />
             <View style={tw`p-4`}>
               <Text style={tw`text-lg font-bold mb-5`}>Portal autogestión</Text>
               <MenuPortal />
