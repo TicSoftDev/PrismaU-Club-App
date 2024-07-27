@@ -14,6 +14,7 @@ export default function ReservarScreen() {
     showDatePicker,
     showStartTimePicker,
     showEndTimePicker,
+    isLoading: loading,
     showDateSelector,
     showEndTimeSelector,
     showStartTimeSelector,
@@ -77,6 +78,7 @@ export default function ReservarScreen() {
           showEndTimeSelector={showEndTimeSelector}
           showStartTimeSelector={showStartTimeSelector}
           handleSubmit={handleSubmit}
+          loading={loading}
         />
       </>
     </ScrollView>

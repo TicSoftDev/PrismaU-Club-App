@@ -138,7 +138,9 @@ const useReservas = () => {
 
     const handleSubmit = async () => {
         try {
+            setIsLoading(true);
             const data = await createReserva(token, reserva);
+            setIsLoading(false);
             if (data.status) {
                 alertSucces('Espacio Reservado correctamente');
                 recargar();
@@ -149,6 +151,7 @@ const useReservas = () => {
                 alertWarning('No completado', 'Ya ha sido reservado este espacio');
             }
         } catch (error) {
+            setIsLoading(false);
             if (error.response && error.response.status === 422) {
                 const mensaje = error.response.data.errors.Fin[0] === "The fin field must be a date after inicio." ? "La hora inicial debe ser mayor a la final" : "Error en los datos";
                 alertWarning('No completado', mensaje);
@@ -196,7 +199,8 @@ const useReservas = () => {
         formatDate,
         formatTime,
         handleSubmit,
-        cancelarReserva
+        cancelarReserva,
+        consultarReservas
     };
 };
 

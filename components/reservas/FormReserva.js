@@ -1,11 +1,12 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 
 const FormReserva = ({
     reserva,
+    loading,
     showDatePicker,
     showStartTimePicker,
     showEndTimePicker,
@@ -87,7 +88,9 @@ const FormReserva = ({
                 />
             )}
             <TouchableOpacity onPress={handleSubmit} style={tw`flex items-center justify-center bg-green-500 rounded-lg py-2 px-8 my-4`}>
-                <Text style={tw`text-white text-center uppercase font-bold`}>Reservar</Text>
+                <Text style={tw`text-white text-center uppercase font-bold`}>
+                    {loading ? <ActivityIndicator color={'#fff'} size={'small'} /> : 'Reservar'}
+                </Text>
             </TouchableOpacity>
         </View>
     );

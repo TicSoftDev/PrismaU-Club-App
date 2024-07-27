@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import DataReservas from '../../components/reservas/DataReservas';
 import useReservas from '../../hooks/useReservas';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ReservasScreen = () => {
 
-  const { isLoading, page, pagedReservas, totalPages, setPage, goReservar, cancelarReserva } = useReservas();
+  const { isLoading, page, pagedReservas, totalPages, setPage, goReservar, cancelarReserva, consultarReservas } = useReservas();
+  useFocusEffect(
+    useCallback(() => {
+      consultarReservas();
+    }, [])
+  );
 
   return (
     <View style={tw`flex-1 bg-gray-100`}>
