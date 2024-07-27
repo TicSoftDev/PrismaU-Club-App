@@ -25,7 +25,7 @@ export default function MenuPortal() {
                 <Text style={[tw`mt-1 font-bold`, { fontSize: Platform.OS === 'ios' ? 10 : 13 }]}>Invitación</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.ESPACIO)}>
+            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.RESERVAS)}>
                 <View style={tw`w-16 h-16 bg-yellow-500 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="map-marked-alt" size={25} color="#ffffff" />
                 </View>

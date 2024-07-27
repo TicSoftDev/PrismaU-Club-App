@@ -17,11 +17,11 @@ export const alertSucces = (message) => {
     });
 }
 
-export const alertWarning = (message) => {
+export const alertWarning = (title, message) => {
     Toast.show({
         type: 'info',
         position: 'bottom',
-        text1: 'Ingrese todos los campos',
+        text1: title,
         text2: message,
         visibilityTime: 4000,
         autoHide: true,
@@ -37,3 +37,4 @@ export const alertWarning = (message) => {
 
 
 }
+

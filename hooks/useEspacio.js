@@ -5,9 +5,12 @@ import { alertWarning } from "../utilities/toast/Toast";
 
 export default function useEspacio() {
 
+    const itemsPerPage = 1;
     const { token } = useAuthContext();
     const [isLoading, setIsLoading] = useState(false);
     const [espacios, setEspacios] = useState([]);
+    const [page, setPage] = useState(0);
+    const [pagedEspacios, setPagedEspacios] = useState([]);
 
     const consultarEspacios = async () => {
         try {
@@ -23,9 +26,15 @@ export default function useEspacio() {
 
     useEffect(() => {
         consultarEspacios();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const startIndex = page * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        setPagedEspacios(espacios.slice(startIndex, endIndex));
+    }, [espacios, page, itemsPerPage]);
 
     return {
-        espacios, isLoading
+        espacios, isLoading, totalPages: Math.ceil(espacios.length / itemsPerPage), page, pagedEspacios, setPage
     };
 }
