@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import { Keyboard } from 'react-native';
 import { useAuthContext } from '../context/AuthContext';
 import { Routes } from '../routes/Routes';
 import { alertWarning } from '../utilities/toast/Toast';
-import { Keyboard } from 'react-native';
 
 export default function useAuth() {
 
@@ -22,7 +22,7 @@ export default function useAuth() {
     const handleLogin = async () => {
         Keyboard.dismiss();
         if (documento === '' || password === '') {
-            return alertWarning('Hay campos vacios');
+            return alertWarning('No completado', 'Hay campos vacios');
         }
         setLoading(true);
         const result = await login(documento, password);
@@ -32,7 +32,7 @@ export default function useAuth() {
             navigation.navigate(Routes.HOME);
         } else {
             recargar();
-            alertWarning('Credenciales Invalidas');
+            alertWarning('No completado', 'Credenciales Invalidas');
         }
     }
 
@@ -45,7 +45,7 @@ export default function useAuth() {
         await logout();
         navigation.navigate(Routes.LOGIN);
         setLoading(false);
-        toggleModal(); 
+        toggleModal();
     };
 
     return {
