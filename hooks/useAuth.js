@@ -12,11 +12,16 @@ export default function useAuth() {
     const [loading, setLoading] = useState(false);
     const [documento, setDocumento] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const { login, logout } = useAuthContext();
 
     const recargar = () => {
         setDocumento('');
         setPassword('');
+    }
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
     }
 
     const goRegistrar = () => {
@@ -57,8 +62,10 @@ export default function useAuth() {
         documento,
         password,
         modal,
+        showPassword,
         setDocumento,
         setPassword,
+        toggleShowPassword,
         handleLogin,
         toggleModal,
         cerrarSesion,

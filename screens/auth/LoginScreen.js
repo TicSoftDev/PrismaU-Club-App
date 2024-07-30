@@ -6,7 +6,8 @@ import useAuth from "../../hooks/useAuth";
 
 export default function LoginScreen() {
 
-  const { loading, documento, password, setDocumento, setPassword, handleLogin,goRegistrar } = useAuth();
+  const { loading, documento, password, showPassword, toggleShowPassword, setDocumento, setPassword, handleLogin,
+    goRegistrar } = useAuth();
 
   return (
     <SafeAreaView style={[tw`flex-1 bg-white`, { paddingTop: StatusBar.currentHeight || 0 }]}>
@@ -24,6 +25,8 @@ export default function LoginScreen() {
               setDocumento={setDocumento}
               setPassword={setPassword}
               loading={loading}
+              show={showPassword}
+              toggleShowPassword={toggleShowPassword}
             />
             <TouchableOpacity style={tw`flex-row mt-4`} onPress={goRegistrar}>
               <Text style={tw`text-gray-500`}>No tienes cuenta? </Text>

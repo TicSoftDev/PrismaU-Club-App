@@ -2,7 +2,7 @@ import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from "reac
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import tw from "tailwind-react-native-classnames";
 
-export default function FormLogin({ loading, documento, password, setDocumento, setPassword, handleLogin }) {
+export default function FormLogin({ loading, documento, password, setDocumento, setPassword, handleLogin, show, toggleShowPassword }) {
   return (
     <View style={[tw`mt-5`, { width: '85%' }]}>
       <View style={tw`flex flex-row items-center w-full h-12 rounded-full border-2 border-gray-200 bg-gray-100 mb-2`}>
@@ -24,11 +24,14 @@ export default function FormLogin({ loading, documento, password, setDocumento, 
           placeholder="Contraseña"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={true}
+          secureTextEntry={!show}
           returnKeyType="go"
           ref={(input) => { this.passwordInput = input; }}
           onSubmitEditing={handleLogin}
         />
+        <TouchableOpacity onPress={toggleShowPassword}>
+          <FontAwesome name={show ? "eye-slash" : "eye"} size={15} style={tw`px-5 text-gray-500`} />
+        </TouchableOpacity>
       </View>
       <TouchableOpacity style={tw`mb-4 mr-3`}>
         <Text style={tw`text-right text-gray-500`}>¿Olvidaste tu contraseña?</Text>
