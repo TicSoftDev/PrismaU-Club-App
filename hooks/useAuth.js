@@ -19,6 +19,10 @@ export default function useAuth() {
         setPassword('');
     }
 
+    const goRegistrar = () => {
+        navigation.navigate(Routes.REGISTER);
+    }
+
     const handleLogin = async () => {
         Keyboard.dismiss();
         if (documento === '' || password === '') {
@@ -57,6 +61,7 @@ export default function useAuth() {
         setPassword,
         handleLogin,
         toggleModal,
-        cerrarSesion
+        cerrarSesion,
+        goRegistrar
     }
 }
