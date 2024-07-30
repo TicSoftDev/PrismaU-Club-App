@@ -28,6 +28,10 @@ export default function useAuth() {
         navigation.navigate(Routes.REGISTER);
     }
 
+    const goReset = () => {
+        navigation.navigate(Routes.RECUPERAR);
+    }
+
     const handleLogin = async () => {
         Keyboard.dismiss();
         if (documento === '' || password === '') {
@@ -69,6 +73,7 @@ export default function useAuth() {
         handleLogin,
         toggleModal,
         cerrarSesion,
-        goRegistrar
+        goRegistrar,
+        goReset
     }
 }

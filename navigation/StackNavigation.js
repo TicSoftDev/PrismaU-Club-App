@@ -16,6 +16,9 @@ import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { TopNavigation } from "./TopNavigation";
 import EncuestasScreen from "../screens/encuestas/EncuestasScreen";
 import DetalleEncuesta from "../screens/encuestas/DetalleEncuesta";
+import RecuperacionScreen from "../screens/auth/RecuperacionScreen";
+import VerifyCodeScreen from "../screens/auth/VerifyCodeScreen";
+import ChangePasswordScreen from "../screens/auth/ChangePasswordScreen";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +28,15 @@ export const StackNavigation = () => {
         <Stack.Navigator >
             <Stack.Screen name={Routes.LOGIN} component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name={Routes.REGISTER} component={RegistroScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false,
+            }} />
+            <Stack.Screen name={Routes.RECUPERAR} component={RecuperacionScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false,
+            }} />
+            <Stack.Screen name={Routes.VALIDAR} component={VerifyCodeScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false,
+            }} />
+            <Stack.Screen name={Routes.RESET} component={ChangePasswordScreen} options={{
                 headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false,
             }} />
             <Stack.Screen name={Routes.HOME} component={TopNavigation} options={{
