@@ -14,6 +14,8 @@ import SolicitudesScreen from "../screens/solicitudes/SolicitudesScreen";
 import BotonLogout from "../utilities/Header/BotonLogout";
 import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { TopNavigation } from "./TopNavigation";
+import EncuestasScreen from "../screens/encuestas/EncuestasScreen";
+import DetalleEncuesta from "../screens/encuestas/DetalleEncuesta";
 
 const Stack = createStackNavigator();
 
@@ -58,6 +60,14 @@ export const StackNavigation = () => {
                 headerRight: () => <BotonLogout />
             }} />
             <Stack.Screen name={Routes.RESERVAR} component={ReservarScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                headerRight: () => <BotonLogout />
+            }} />
+            <Stack.Screen name={Routes.ENCUESTAS} component={EncuestasScreen} options={{
+                headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                headerRight: () => <BotonLogout />
+            }} />
+            <Stack.Screen name={Routes.ENCUESTA} component={DetalleEncuesta} options={{
                 headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
                 headerRight: () => <BotonLogout />
             }} />

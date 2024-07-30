@@ -11,7 +11,7 @@ export default function MenuBienestar() {
 
     return (
         <View style={tw`flex-row justify-start flex-wrap`}>
-            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.FAMILIARES)}>
+            <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(Routes.ENCUESTAS)}>
                 <View style={tw`w-16 h-16 bg-pink-500 justify-center rounded-lg items-center`}>
                     <FontAwesome5 name="clipboard-list" size={30} color="#ffffff" />
                 </View>
