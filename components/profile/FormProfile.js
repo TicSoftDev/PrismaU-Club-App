@@ -22,8 +22,8 @@ const FormProfile = ({ toggleModal }) => {
                 <Text style={tw`text-lg text-white`}>{user.Apellidos}</Text>
             </View>
 
-            <View style={tw`mt-2 bg-white p-5 shadow-sm`}>
-                <Text style={tw`text-xl font-semibold mb-4`}>INFORMACIÓN</Text>
+            <View style={tw`mt-2 bg-white py-5 px-2`}>
+                <Text style={tw`text-xl font-semibold mb-4 px-2`}>INFORMACIÓN</Text>
                 <InformationItem icon="id-card" label="Documento" value={user.TipoDocumento + ': ' + user.Documento} />
                 <InformationItem icon="envelope" label="Correo" value={user.Correo} />
                 <InformationItem icon="phone-alt" label="Teléfono" value={user.Telefono} />
