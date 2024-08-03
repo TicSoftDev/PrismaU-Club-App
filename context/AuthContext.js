@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useContext, useEffect, useState } from "react";
 import { validarSesion } from "../services/AuthService";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
@@ -8,24 +9,37 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [user, setUser] = useState(null);
     const [credenciales, setCredenciales] = useState({});
     const [token, setToken] = useState(null);
 
-    useEffect(() => {
-        const checkUserSession = async () => {
-            try {
-                const storedToken = await AsyncStorage.getItem("@token");
-                if (storedToken) {
-                    setToken(storedToken);
-                } else {
-                    setToken(null);
+    const checkUserSession = async () => {
+        try {
+            const userData = await AsyncStorage.getItem('@user');
+            const token = await AsyncStorage.getItem('@token');
+            const credenciales = await AsyncStorage.getItem('@credenciales');
+            if (token) {
+                const decodedToken = jwtDecode(token);
+                const currentTime = Date.now() / 1000;
+                if (decodedToken.exp < currentTime) {
+                    await logout();
+                    return;
                 }
-            } catch (error) {
-                console.log("Error al cargar sesión:", error);
             }
-        };
+            if (userData && token && credenciales) {
+                setUser(JSON.parse(userData));
+                setToken(token);
+                setCredenciales(JSON.parse(credenciales));
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
+    useEffect(() => {
         checkUserSession();
     }, []);
 
@@ -55,22 +69,7 @@ export const AuthProvider = ({ children }) => {
         await AsyncStorage.multiRemove(['@token', '@credenciales', '@user']);
     };
 
-    useEffect(() => {
-        const loadStoredData = async () => {
-            const storedToken = await AsyncStorage.getItem('@token');
-            const storedUser = await AsyncStorage.getItem('@user');
-            const storedCredenciales = await AsyncStorage.getItem('@credenciales');
-            if (storedToken && storedUser && storedCredenciales) {
-                setToken(storedToken);
-                setUser(JSON.parse(storedUser));
-                setCredenciales(JSON.parse(storedCredenciales));
-            }
-        };
-
-        loadStoredData();
-    }, []);
-
-    const value = { login, logout, user, token, credenciales };
+    const value = { login, logout, user, token, credenciales, isLoading };
 
     return (
         <AuthContext.Provider value={value}>
