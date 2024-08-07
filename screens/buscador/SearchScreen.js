@@ -1,4 +1,5 @@
-import React from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback } from 'react';
 import { ActivityIndicator, Button, Image, SafeAreaView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import imagenes from '../../assets/img/imagenes';
@@ -7,7 +8,13 @@ import DataResult from '../../components/search/DataResult';
 import useBuscador from '../../hooks/useBuscador';
 
 export default function SearchScreen() {
-    const { user, busqueda, handleChange, handleBusqueda, isLoading, searched, newSearch } = useBuscador();
+    const { user, busqueda, isLoading, searched, handleChange, handleBusqueda, newSearch,
+        getUsers } = useBuscador();
+    useFocusEffect(
+        useCallback(() => {
+            getUsers();
+        }, [])
+    );
 
     return (
         <SafeAreaView style={tw`flex-1 bg-white`}>

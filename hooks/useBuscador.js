@@ -39,7 +39,6 @@ export default function useBuscador() {
         }
     };
 
-
     const normalizeText = (text) => {
         return text?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     };
@@ -86,7 +85,8 @@ export default function useBuscador() {
         busqueda,
         handleChange,
         handleBusqueda,
-        newSearch
+        newSearch,
+        getUsers
     }
 
 }
