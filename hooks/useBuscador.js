@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Keyboard } from 'react-native';
 import { useAuthContext } from '../context/AuthContext';
-import { getUsersActivos } from '../services/UsuariosService';
+import { getUsuario } from '../services/UsuariosService';
 import { alertWarning } from '../utilities/toast/Toast';
 
 export default function useBuscador() {
@@ -11,7 +11,6 @@ export default function useBuscador() {
     const [user, setUser] = useState({});
     const [searched, setSearched] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [usuarios, setUsuarios] = useState([]);
 
     const handleChange = (value) => {
         setBusqueda(value);
@@ -23,27 +22,7 @@ export default function useBuscador() {
         setUser({});
     }
 
-    const getUsers = async () => {
-        setIsLoading(true);
-        try {
-            if (!token) {
-                throw new Error('Token no disponible');
-            }
-            const res = await getUsersActivos(token);
-            setUsuarios(res || []);
-        } catch (error) {
-            alertWarning('Error al cargar usuarios'+ error);
-            console.error(error); 
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const normalizeText = (text) => {
-        return text?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    };
-
-    const handleBusqueda = () => {
+    const handleBusqueda = async () => {
         Keyboard.dismiss();
         if (busqueda.trim() === '') {
             setIsLoading(false);
@@ -51,32 +30,15 @@ export default function useBuscador() {
             return;
         }
         setIsLoading(true);
-
-        const busquedaLower = normalizeText(busqueda);
-
-        const filteredUsers = usuarios.filter(u => {
-            const documento = normalizeText(u?.documento || '');
-            const nombre = normalizeText(u?.nombre || '');
-            const apellidos = normalizeText(u?.apellidos || '');
-            const fullName = `${nombre} ${apellidos}`;
-
-            return documento.includes(busquedaLower) ||
-                   fullName.includes(busquedaLower) ||
-                   busquedaLower.split(' ').every(word => fullName.includes(word));
-        });
-
-        if (filteredUsers.length === 0) {
+        const data = await getUsuario(busqueda, token);
+        if (!data.status) {
             alertWarning("No se encontró el usuario");
         } else {
-            setUser(filteredUsers[0]);
+            setUser(data);
             setSearched(true);
         }
         setIsLoading(false);
     };
-
-    useEffect(() => {
-        getUsers();
-    }, [token])
 
     return {
         searched,
@@ -86,7 +48,6 @@ export default function useBuscador() {
         handleChange,
         handleBusqueda,
         newSearch,
-        getUsers
     }
 
 }
