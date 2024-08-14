@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Base64 } from "js-base64";
 import { createContext, useContext, useEffect, useState } from "react";
 import { validarSesion } from "../services/AuthService";
-import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
@@ -20,9 +20,14 @@ export const AuthProvider = ({ children }) => {
             const token = await AsyncStorage.getItem('@token');
             const credenciales = await AsyncStorage.getItem('@credenciales');
             if (token) {
-                const decodedToken = jwtDecode(token);
-                const currentTime = Date.now() / 1000;
-                if (decodedToken.exp < currentTime) {
+                try {
+                    let expiracion = isTokenExpired(token);
+                    if (expiracion) {
+                        await logout();
+                        return;
+                    }
+                } catch (decodeError) {
+                    console.error('Error decodificando el token:', decodeError);
                     await logout();
                     return;
                 }
@@ -33,11 +38,12 @@ export const AuthProvider = ({ children }) => {
                 setCredenciales(JSON.parse(credenciales));
             }
         } catch (e) {
-            console.error(e);
+            console.error('Error en checkUserSession:', e);
         } finally {
             setIsLoading(false);
         }
     };
+
 
     useEffect(() => {
         checkUserSession();
@@ -68,6 +74,13 @@ export const AuthProvider = ({ children }) => {
         setCredenciales({});
         await AsyncStorage.multiRemove(['@token', '@credenciales', '@user']);
     };
+
+    const isTokenExpired = (token) => {
+        const arrayToken = token.split('.');
+        const payload = JSON.parse(Base64.decode(arrayToken[1]));
+        const currentTime = Date.now() / 1000;
+        return currentTime > payload.exp;
+    }
 
     const value = { login, logout, user, token, credenciales, isLoading };
 
