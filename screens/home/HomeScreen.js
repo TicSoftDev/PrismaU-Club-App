@@ -8,10 +8,12 @@ import MenuBienestar from '../../components/home/MenuBienestar';
 import MenuPortal from '../../components/home/MenuPortal';
 import { useAuthContext } from '../../context/AuthContext';
 import useCantidad from '../../hooks/useCantidad';
+import useHome from '../../hooks/useHome';
 
 export default function HomeScreen() {
   const { user, credenciales } = useAuthContext();
   const { contFamiliaresSocio, contInvitadosSocio, contReservasSocio, contSolicitudesSocio } = useCantidad();
+  const { loadingBienestar, loadingPortal, menuBienestar, menuPortal } = useHome();
 
   return (
     <ScrollView style={tw`flex-1`}>
@@ -22,11 +24,11 @@ export default function HomeScreen() {
             <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} solicitudes={contSolicitudesSocio} reservas={contReservasSocio} />
             <View style={tw`p-4`}>
               <Text style={tw`text-lg font-bold mb-5`}>Portal autogestión</Text>
-              <MenuPortal />
+              <MenuPortal menus={menuPortal} />
             </View>
             <View style={tw`p-4`}>
               <Text style={tw`text-lg font-bold mb-5`}>Bienestar laboral</Text>
-              <MenuBienestar />
+              <MenuBienestar menus={menuBienestar} />
             </View>
           </>
           :
