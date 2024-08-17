@@ -83,6 +83,7 @@ export default function FormInvitacion({ invitado, handleChange, handleSubmit, l
                         <TextInput
                             placeholder="Ingrese el número de documento"
                             style={tw`flex-1 text-sm`}
+                            keyboardType="numeric"  // Activa el teclado numérico
                             onChangeText={(text) => handleChange(text, 'Documento')}
                             value={invitado.Documento}
                         />
@@ -93,6 +94,7 @@ export default function FormInvitacion({ invitado, handleChange, handleSubmit, l
                         <TextInput
                             placeholder="Ingrese el número de teléfono"
                             style={tw`flex-1 text-sm`}
+                            keyboardType="phone-pad"  // Activa el teclado numérico para teléfono
                             onChangeText={(text) => handleChange(text, 'Telefono')}
                             value={invitado.Telefono}
                         />
