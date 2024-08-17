@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import Bienvenida from '../../components/home/Bienvenida';
 import CardsContadores from '../../components/home/CardsContadores';
@@ -24,11 +24,21 @@ export default function HomeScreen() {
             <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} solicitudes={contSolicitudesSocio} reservas={contReservasSocio} />
             <View style={tw`p-4`}>
               <Text style={tw`text-lg font-bold mb-5`}>Portal autogestión</Text>
-              <MenuPortal menus={menuPortal} />
+              {
+                loadingPortal ?
+                  <ActivityIndicator size="large" color="#0000ff" />
+                  :
+                  <MenuPortal menus={menuPortal} />
+              }
             </View>
             <View style={tw`p-4`}>
               <Text style={tw`text-lg font-bold mb-5`}>Bienestar laboral</Text>
-              <MenuBienestar menus={menuBienestar} />
+              {
+                loadingBienestar ?
+                  <ActivityIndicator size="large" color="#0000ff" />
+                  :
+                  <MenuBienestar menus={menuBienestar} />
+              }
             </View>
           </>
           :

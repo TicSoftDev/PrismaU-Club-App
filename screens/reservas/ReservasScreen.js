@@ -1,13 +1,16 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
+import Forbiden from '../../components/global/Forbiden';
 import DataReservas from '../../components/reservas/DataReservas';
+import { useAuthContext } from '../../context/AuthContext';
 import useReservas from '../../hooks/useReservas';
-import { useFocusEffect } from '@react-navigation/native';
 
 const ReservasScreen = () => {
 
   const { isLoading, page, pagedReservas, totalPages, setPage, goReservar, cancelarReserva, consultarReservas } = useReservas();
+  const { user } = useAuthContext();
   useFocusEffect(
     useCallback(() => {
       consultarReservas();
@@ -19,11 +22,18 @@ const ReservasScreen = () => {
       <View style={tw`flex flex-row justify-between items-center h-20 w-full bg-green-500 px-4`}>
         <Text style={tw`text-xl font-bold text-white`}>Reservas</Text>
       </View>
-      <DataReservas page={page} setPage={setPage} totalPages={totalPages} reservas={pagedReservas} isLoading={isLoading}
-        cancelar={cancelarReserva} />
-      <TouchableOpacity onPress={goReservar} style={tw`w-full bg-green-500 p-2`}>
-        <Text style={tw`font-bold text-white text-center uppercase`}>Reservar Espacio</Text>
-      </TouchableOpacity>
+      {
+        user.Estado == 1 ?
+          <>
+            <DataReservas page={page} setPage={setPage} totalPages={totalPages} reservas={pagedReservas} isLoading={isLoading}
+              cancelar={cancelarReserva} />
+            <TouchableOpacity onPress={goReservar} style={tw`w-full bg-green-500 p-2`}>
+              <Text style={tw`font-bold text-white text-center uppercase`}>Reservar Espacio</Text>
+            </TouchableOpacity>
+          </>
+          :
+          <Forbiden estado={user.Estado} />
+      }
     </View>
   );
 };

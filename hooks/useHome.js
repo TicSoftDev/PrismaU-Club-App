@@ -14,7 +14,6 @@ function useHome() {
         setLoadingPortal(true);
         try {
             const data = await getMenusPortal(credenciales.Rol, token);
-            console.log("data" + data);
             setMenuPortal(data);
         } catch (error) {
             console.log(error.message);

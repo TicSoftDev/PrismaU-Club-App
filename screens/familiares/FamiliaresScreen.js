@@ -7,6 +7,7 @@ import useFamiliar from '../../hooks/useFamiliar';
 export default function FamiliaresScreen() {
 
     const { familiares, isLoading } = useFamiliar();
+    
     return (
         <>
             <View style={tw`h-20 w-full bg-green-500 pt-8 px-4`}>
