@@ -14,6 +14,13 @@ export default function DataResult({ data }) {
             <View style={tw`mx-auto max-w-lg w-full bg-white rounded-lg shadow-md overflow-hidden`}>
                 <ScrollView contentContainerStyle={tw`flex-grow`}>
                     <View>
+                        <View style={tw`flex-row items-center justify-between rounded-t-lg mx-auto max-w-lg w-full p-3 shadow-md ${data.user.Estado == 0 ? "bg-red-600" : data.user.Estado == 1 ? "bg-green-500" : data.user.Estado == 2 ? "bg-yellow-500" : "bg-purple-500"} shadow`}>
+                            <View style={tw`flex-row items-center`}>
+                                <FontAwesome5 name="eye" size={20} color="white" style={tw`mr-2 ml-2`} />
+                                <Text style={tw`text-lg text-white font-semibold mr-2`}>ESTADO:</Text>
+                                <Text style={tw`text-lg text-white font-semibold`}>{data.user.Estado == 0 ? 'Inactivo' : data.user.Estado == 1 ? 'Activo' : data.user.Estado == 2 ? 'Retirado' : 'En Mora'}</Text>
+                            </View>
+                        </View>
                         <View style={tw`flex flex-row justify-center items-center mt-4`}>
                             <Image source={imagenes.logoClub} resizeMode='contain' style={tw`h-10 w-10`} />
                             <View>
@@ -44,7 +51,10 @@ export default function DataResult({ data }) {
                                             <FontAwesome5 name="user" size={24} color="green" style={tw`mr-6 ml-2`} />
                                             <View style={tw`flex-1`}>
                                                 <Text style={tw`text-lg font-semibold`}>{item.Nombre} {item.Apellidos}</Text>
-                                                <Text style={tw`text-sm text-gray-600`}>{item.Parentesco}</Text>
+                                                <View style={tw`flex-row justify-between items-center mr-10`}>
+                                                    <Text style={tw`text-sm text-gray-600`}>{item.Documento}</Text>
+                                                    <Text style={tw`text-sm text-gray-600`}>{item.Parentesco}</Text>
+                                                </View>
                                             </View>
                                         </View>
                                     ))
@@ -54,25 +64,37 @@ export default function DataResult({ data }) {
                         {
                             (data.credenciales.Rol == 5) &&
                             <View>
-                                {
-                                    <View style={tw`flex-row items-center px-3 py-5 bg-white shadow`}>
-                                        <FontAwesome5 name="user" size={24} color="green" style={tw`mr-6 ml-2`} />
-                                        <View style={tw`flex-1`}>
-                                            <Text style={tw`text-lg font-semibold`}>{data.user.relacionado.Nombre} {data.user.relacionado.Apellidos}</Text>
+                                <View style={tw`flex-row items-center px-3 py-5 bg-white shadow`}>
+                                    <FontAwesome5 name="user" size={24} color="green" style={tw`mr-6 ml-2`} />
+                                    <View style={tw`flex-1`}>
+                                        <Text style={tw`text-lg font-semibold`}>{data.user.relacionado.Nombre} {data.user.relacionado.Apellidos}</Text>
+                                        <View style={tw`flex-row justify-between items-center mr-10`}>
+                                            <Text style={tw`text-sm text-gray-600`}>{data.user.relacionado.Documento}</Text>
                                             <Text style={tw`text-sm text-gray-600`}>{data.user.asociado ? 'Asociado' : 'Adherente'}</Text>
                                         </View>
                                     </View>
+                                </View>
+                                {
+                                    data.user.relacionado.familiares.map((item, index) => (
+                                        item.id != data.user.id &&
+                                        <View key={index} style={tw`flex-row items-center p-3 bg-white shadow`}>
+                                            <FontAwesome5 name="user" size={24} color="green" style={tw`mr-6 ml-2`} />
+                                            <View style={tw`flex-1`}>
+                                                <Text style={tw`text-lg font-semibold`}>{item.Nombre} {item.Apellidos}</Text>
+                                                <View style={tw`flex-row justify-between items-center mr-10`}>
+                                                    <Text style={tw`text-sm text-gray-600`}>{item.Documento}</Text>
+                                                    <Text style={tw`text-sm text-gray-600`}>{item.Parentesco}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    ))
                                 }
                             </View>
                         }
-                        <View style={tw`flex-row items-center justify-between rounded-b-lg p-5 ${data.user.Estado == 0 ? "bg-red-600" : data.user.Estado == 1 ? "bg-green-500" : data.user.Estado == 2 ? "bg-yellow-500" : "bg-purple-500"} shadow`}>
+                        <View style={tw`flex-row items-center justify-between rounded-b-lg p-3 ${data.user.Estado == 0 ? "bg-red-600" : data.user.Estado == 1 ? "bg-green-500" : data.user.Estado == 2 ? "bg-yellow-500" : "bg-purple-500"} shadow`}>
                             <View style={tw`flex-row`}>
                                 <FontAwesome5 name="user-cog" size={24} color="white" style={tw`mr-2 ml-2`} />
                                 <Text style={tw`text-lg text-white font-semibold`}>{rol}</Text>
-                            </View>
-                            <View style={tw`flex-row items-center`}>
-                                <FontAwesome5 name="eye" size={24} color="white" style={tw`mr-2 ml-2`} />
-                                <Text style={tw`text-lg text-white font-semibold`}>{data.user.Estado == 0 ? 'Inactivo' : data.user.Estado == 1 ? 'Activo' : data.user.Estado == 2 ? 'Retirado' : 'En Mora'}</Text>
                             </View>
                         </View>
                     </View>
