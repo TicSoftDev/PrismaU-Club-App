@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PrismaU",
-    "slug": "PrismaU-Club",
+    "slug": "prismau-identidad",
     "version": "5.0.0",
     "orientation": "portrait",
     "icon": "./assets/img/logo-PRISMA.png",
@@ -43,8 +43,8 @@
     },
     "extra": {
       "eas": {
-        "projectId": "9690b732-37ad-4f13-bc58-61faafcd1ee8"
-        // "projectId": "6c0c477b-5217-4dc5-b206-82ae14cdcb20" //para apple cuenta Javier
+        //"projectId": "9690b732-37ad-4f13-bc58-61faafcd1ee8"
+        "projectId": "6c0c477b-5217-4dc5-b206-82ae14cdcb20" //para apple cuenta Javier
       }
     }
   }

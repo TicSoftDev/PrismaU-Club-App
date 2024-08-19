@@ -32,7 +32,7 @@ export default function HomeScreen() {
               }
             </View>
             <View style={tw`p-4`}>
-              <Text style={tw`text-lg font-bold mb-5`}>Bienestar laboral</Text>
+              <Text style={tw`text-lg font-bold mb-5`}>Bienestar Institucional</Text>
               {
                 loadingBienestar ?
                   <ActivityIndicator size="large" color="#0000ff" />

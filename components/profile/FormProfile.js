@@ -35,6 +35,7 @@ const FormProfile = ({ toggleModal }) => {
                     <Text style={tw`text-white text-center`}>Cambiar Contraseña</Text>
                 </TouchableOpacity>
             </View>
+           
         </ScrollView>
     );
 };

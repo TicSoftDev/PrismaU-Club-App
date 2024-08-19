@@ -31,7 +31,7 @@ export default function LoginScreen() {
             />
             <TouchableOpacity style={tw`flex-row mt-4`} onPress={goRegistrar}>
               <Text style={tw`text-gray-500`}>No tienes cuenta? </Text>
-              <Text style={tw`text-gray-500 font-bold`}>registrate</Text>
+              <Text style={tw`text-gray-500 font-bold`}>Registrate</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
