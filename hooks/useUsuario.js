@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
-import { changePassword } from '../services/UsuariosService';
+import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
+import { changePassword, deleteAccount } from '../services/UsuariosService';
 import { alertSucces, alertWarning } from '../utilities/toast/Toast';
 
 function useUsuario() {
 
     const { token, credenciales } = useAuthContext();
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [delet, setDelet] = useState(false);
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
+    }
+
+    const toggleModalDelete = () => {
+        setModalDeleteVisible(!modalDeleteVisible);
+        setDelet(false);
     }
 
     const handleChange = (value) => {
@@ -34,8 +41,22 @@ function useUsuario() {
         }
     }
 
+    const eliminarCuenta = async () => {
+        try {
+            setLoading(true);
+            const data = await deleteAccount(credenciales.id, token);
+            setLoading(false);
+            if (data.message == "hecho") {
+                setDelet(true);
+            }
+        } catch (error) {
+            setLoading(false);
+            alertWarning("Error al eliminar la cuenta", error.message);
+        }
+    }
+
     return {
-        modalVisible, password, loading, toggleModal, handleChange, handleSubmit
+        modalVisible, password, loading, modalDeleteVisible, delet, toggleModalDelete, toggleModal, handleChange, handleSubmit, eliminarCuenta
     }
 }
 

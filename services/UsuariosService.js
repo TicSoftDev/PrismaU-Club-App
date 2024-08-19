@@ -43,3 +43,18 @@ export const changePassword = async (id, password, token) => {
         throw error.message;
     }
 };
+
+export const deleteAccount = async (id, token) => {
+    try {
+        const res = await axios.delete(URL + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+};
+
