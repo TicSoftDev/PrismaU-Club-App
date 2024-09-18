@@ -23,7 +23,7 @@ export default function HomeScreen() {
           <>
             <CardsContadores familiares={contFamiliaresSocio} invitados={contInvitadosSocio} solicitudes={contSolicitudesSocio} reservas={contReservasSocio} />
             <View style={tw`p-4`}>
-              <Text style={tw`text-lg font-bold mb-5`}>Portal autogestión</Text>
+              <Text style={tw`text-lg font-bold mb-5`}>Portal Autogestión</Text>
               {
                 loadingPortal ?
                   <ActivityIndicator size="large" color="#0000ff" />
