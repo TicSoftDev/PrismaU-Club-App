@@ -1,23 +1,14 @@
 import React from 'react';
 import { ActivityIndicator, Button, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-import DataScanner from '../../components/qr/DataScanner';
 import QrExpirado from '../../components/qr/QrExpirado';
 import ScannerQr from '../../components/qr/ScannerQr';
+import DataResult from '../../components/search/DataResult';
 import useQr from '../../hooks/useQr';
 
 export default function ScanQrScreen() {
-  const {
-    scanned,
-    newScanner,
-    handleBarCodeScanned,
-    data,
-    rol,
-    fechaVencimiento,
-    ahora,
-    isLoading
-  } = useQr();
 
+  const { scanned, data, rol, fechaVencimiento, ahora, isLoading, newScanner, handleBarCodeScanned } = useQr();
   const isExpired = scanned && fechaVencimiento && fechaVencimiento < ahora;
 
   if (isLoading) {
@@ -38,7 +29,7 @@ export default function ScanQrScreen() {
           <QrExpirado />
           :
           scanned && !isExpired ?
-            <DataScanner data={data} rol={rol} />
+            <DataResult data={data} />
             :
             <Text>Loading...</Text>
       }
