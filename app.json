@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "PrismaU",
-    "slug": "prismau-identidad",
-    "version": "5.0.0",
+    "slug": "PrismaU-Club",
+    "version": "6.0.0",
     "orientation": "portrait",
     "icon": "./assets/img/logo-PRISMA.png",
     "userInterfaceStyle": "light",
@@ -36,15 +36,14 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ticsoftdev.PrismaUIdClub",
-      "versionCode": 5
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/img/Logo_PrismaU.png"
     },
     "extra": {
       "eas": {
-        //"projectId": "9690b732-37ad-4f13-bc58-61faafcd1ee8"
-        "projectId": "6c0c477b-5217-4dc5-b206-82ae14cdcb20" //para apple cuenta Javier
+        "projectId": "1db1ae9c-d874-47c2-b5d2-061e243bfff4"
       }
     }
   }

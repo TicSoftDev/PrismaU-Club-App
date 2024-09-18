@@ -9,7 +9,7 @@ export default function MenuPortal({ menus }) {
     const navigation = useNavigation();
 
     return (
-        <View style={tw`flex-row justify-between flex-wrap`}>
+        <View style={tw`flex-row justify-start flex-wrap`}>
             {menus.map((menu, index) => (
                 <TouchableOpacity style={tw`items-center w-1/4`} onPress={() => navigation.navigate(menu.Route)} key={index}>
                     <View style={tw`w-16 h-16 bg-${menu.Color} justify-center rounded-lg items-center`}>
