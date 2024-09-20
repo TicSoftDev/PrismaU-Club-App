@@ -2,7 +2,7 @@
   "expo": {
     "name": "PrismaU",
     "slug": "PrismaU-Club",
-    "version": "6.0.0",
+    "version": "6.0.1",
     "orientation": "portrait",
     "icon": "./assets/img/logo-PRISMA.png",
     "userInterfaceStyle": "light",
