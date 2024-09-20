@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
 import { useAuthContext } from '../context/AuthContext';
 import { Routes } from '../routes/Routes';
@@ -14,6 +15,16 @@ export default function useAuth() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const { login, logout } = useAuthContext();
+
+    useEffect(() => {
+        const loadCredentials = async () => {
+            const storedDocumento = await AsyncStorage.getItem('documento');
+            const storedPassword = await AsyncStorage.getItem('password');
+            if (storedDocumento) setDocumento(storedDocumento);
+            if (storedPassword) setPassword(storedPassword);
+        };
+        loadCredentials();
+    }, []);
 
     const recargar = () => {
         setDocumento('');
@@ -41,6 +52,8 @@ export default function useAuth() {
         const result = await login(documento, password);
         setLoading(false);
         if (result) {
+            await AsyncStorage.setItem('documento', documento);
+            await AsyncStorage.setItem('password', password);
             recargar();
             navigation.navigate(Routes.HOME);
         } else {
