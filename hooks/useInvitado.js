@@ -46,11 +46,16 @@ export default function useInvitado() {
     };
 
     const handleChange = (value, name) => {
+        let filteredValue = value;
+        if (name === 'Documento') {
+            filteredValue = value.replace(/[^0-9]/g, '');
+        }
         setInvitado({
             ...invitado,
-            [name]: value
+            [name]: filteredValue
         });
     };
+
 
     const handleSubmit = async (e) => {
         try {
