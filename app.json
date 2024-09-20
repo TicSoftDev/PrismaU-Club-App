@@ -4,7 +4,7 @@
     "slug": "PrismaU-Club",
     "version": "6.0.1",
     "orientation": "portrait",
-    "icon": "./assets/img/logo-PRISMA.png",
+    "icon": "./assets/img/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "assets/img/splash.png",
@@ -32,14 +32,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/img/Logo_PrismaU.png",
+        "foregroundImage": "./assets/img/logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.ticsoftdev.PrismaUIdClub",
       "versionCode": 6
     },
     "web": {
-      "favicon": "./assets/img/Logo_PrismaU.png"
+      "favicon": "./assets/img/logo.png"
     },
     "extra": {
       "eas": {
