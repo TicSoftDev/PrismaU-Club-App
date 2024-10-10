@@ -1,31 +1,29 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { CommonActions, useNavigation } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import React from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useAuthContext } from "../context/AuthContext";
 import { Routes } from "../routes/Routes";
-import HomeScreen from "../screens/home/HomeScreen";
+import SearchScreen from "../screens/buscador/SearchScreen";
 import CarnetScreen from "../screens/carnet/CarnetScreen";
+import EntradasScreen from "../screens/entradas/EntradasScreen";
+import HomeScreen from "../screens/home/HomeScreen";
+import ProfileScreen from "../screens/perfil/ProfileScreen";
 import QrScreen from "../screens/qr/QrScreen";
 import ScanQrScreen from "../screens/qr/ScanQrScreen";
-import SearchScreen from "../screens/buscador/SearchScreen";
-import EntradasScreen from "../screens/entradas/EntradasScreen";
-import ProfileScreen from "../screens/perfil/ProfileScreen";
 const Tab = createMaterialTopTabNavigator();
 
 export const TopNavigation = () => {
 
-    const navigation = useNavigation();
     const { credenciales } = useAuthContext();
 
     const routes = [
-        { name: Routes.PRINCIPAL, component: HomeScreen, roles: ["1", "2", "3", "4", "5", "6"] },
-        { name: Routes.CARNET, component: CarnetScreen, roles: ["1", "2", "3", "4", "5"] },
-        { name: Routes.QR, component: QrScreen, roles: ["1", "2", "3", "4", "5"] },
-        { name: Routes.SCANQR, component: ScanQrScreen, roles: ["6"] },
-        { name: Routes.SEARCH, component: SearchScreen, roles: ["6"] },
-        { name: Routes.ENTRADAS, component: EntradasScreen, roles: ["6"] },
-        { name: Routes.PROFILE, component: ProfileScreen, roles: ["1", "2", "3", "4", "5", "6"] },
+        { name: Routes.PRINCIPAL, component: HomeScreen, roles: [1, 2, 3, 4, 5, 6] },
+        { name: Routes.CARNET, component: CarnetScreen, roles: [1, 2, 3, 4, 5] },
+        { name: Routes.QR, component: QrScreen, roles: [1, 2, 3, 4, 5] },
+        { name: Routes.SCANQR, component: ScanQrScreen, roles: [6] },
+        { name: Routes.SEARCH, component: SearchScreen, roles: [6] },
+        { name: Routes.ENTRADAS, component: EntradasScreen, roles: [6] },
+        { name: Routes.PROFILE, component: ProfileScreen, roles: [1, 2, 3, 4, 5, 6] },
     ];
 
     const TabBarIcon = ({ routeName, focused }) => {
@@ -53,23 +51,15 @@ export const TopNavigation = () => {
                 iconName = focused ? "person-circle" : "person-circle-outline";
                 break;
             default:
-                iconName = focused ? "alert-circle" : "alert-circle-outline"; // Un ícono predeterminado
+                iconName = focused ? "alert-circle" : "alert-circle-outline";
         }
         return <Ionicons name={iconName} size={25} color="#09892F" />;
     };
 
-    const accessibleRoutes = routes.filter(route => route.roles.includes(credenciales.Rol));
-
-    useEffect(() => {
-        if (accessibleRoutes.length === 0) {
-            navigation.dispatch(
-                CommonActions.reset({
-                    index: 0,
-                    routes: [{ name: Routes.LOGIN }],
-                })
-            );
-        }
-    }, [accessibleRoutes.length, navigation]);
+    const accessibleRoutes = routes.filter(route => {
+        const hasAccess = route.roles.includes(credenciales.Rol);
+        return hasAccess;
+    });
 
     if (accessibleRoutes.length === 0) {
         return null;
