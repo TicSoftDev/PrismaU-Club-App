@@ -2,7 +2,7 @@
   "expo": {
     "name": "PrismaU",
     "slug": "PrismaU-Club",
-    "version": "7.0.0",
+    "version": "7.0.1",
     "orientation": "portrait",
     "icon": "./assets/img/logo.png",
     "userInterfaceStyle": "light",
@@ -36,7 +36,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ticsoftdev.PrismaUIdClub",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/img/logo.png"
