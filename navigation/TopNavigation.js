@@ -5,6 +5,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { Routes } from "../routes/Routes";
 import SearchScreen from "../screens/buscador/SearchScreen";
 import CarnetScreen from "../screens/carnet/CarnetScreen";
+import EntradasInvitadosScreen from "../screens/entradas/EntradasInvitadosScreen";
 import EntradasScreen from "../screens/entradas/EntradasScreen";
 import HomeScreen from "../screens/home/HomeScreen";
 import ProfileScreen from "../screens/perfil/ProfileScreen";
@@ -23,6 +24,7 @@ export const TopNavigation = () => {
         { name: Routes.SCANQR, component: ScanQrScreen, roles: [6] },
         { name: Routes.SEARCH, component: SearchScreen, roles: [6] },
         { name: Routes.ENTRADAS, component: EntradasScreen, roles: [6] },
+        { name: Routes.ENTRADAS_INVITADO, component: EntradasInvitadosScreen, roles: [6] },
         { name: Routes.PROFILE, component: ProfileScreen, roles: [1, 2, 3, 4, 5, 6] },
     ];
 
@@ -46,6 +48,9 @@ export const TopNavigation = () => {
                 break;
             case Routes.ENTRADAS:
                 iconName = focused ? "enter" : "enter-outline";
+                break;
+            case Routes.ENTRADAS_INVITADO:
+                iconName = focused ? "people" : "people-outline";
                 break;
             case Routes.PROFILE:
                 iconName = focused ? "person-circle" : "person-circle-outline";

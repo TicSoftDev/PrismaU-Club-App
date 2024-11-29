@@ -16,6 +16,7 @@ export const Routes = {
     INVITACION: 'Invitacion',
     FAMILIARES: 'Familiares',
     ENTRADAS: 'Entradas',
+    ENTRADAS_INVITADO: 'Entradas-invitado',
     EVENTOS: 'Eventos',
     SOLICITUDES: 'Solicitudes',
     CREAR_SOLICITUD: 'Crear-solicitud',

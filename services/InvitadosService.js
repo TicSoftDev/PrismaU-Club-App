@@ -30,6 +30,20 @@ export async function getCantidadInvitadosSocio(id, token) {
     }
 };
 
+export async function getEntradas(token) {
+    try {
+        const res = await axios.get(URL + "/entradas", {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+};
+
 export const updateEntrada = async (id, token) => {
     try {
         const res = await axios.put(URL + "/" + id, {}, {

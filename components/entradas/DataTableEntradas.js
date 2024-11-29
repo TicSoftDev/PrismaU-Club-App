@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 import { es } from 'date-fns/locale'
 import React from 'react'
 import { ScrollView, Text, View } from 'react-native'
@@ -35,6 +36,11 @@ export default function DataTableEntradas({ pagedEntradas, page, setPage, totalP
         }
     };
 
+    const formatFecha = (fecha) => {
+        const fechaBogota = toZonedTime(fecha, 'America/Bogota');
+        return format(fechaBogota, "dd/MM/yyyy, h:mm a", { locale: es });
+    }
+
     return (
         <ScrollView horizontal>
             <View style={tw`flex-1 bg-white border-2 border-gray-200 rounded-lg`}>
@@ -46,7 +52,7 @@ export default function DataTableEntradas({ pagedEntradas, page, setPage, totalP
                         <DataTable.Title style={tw`w-44`}>
                             <Text style={tw`text-white uppercase font-bold text-sm`}> Fecha</Text>
                         </DataTable.Title>
-                        <DataTable.Title style={tw`w-28`}>
+                        <DataTable.Title style={tw`w-20`}>
                             <Text style={tw`text-white uppercase font-bold text-sm`}> Rol</Text>
                         </DataTable.Title>
                     </DataTable.Header>
@@ -56,9 +62,9 @@ export default function DataTableEntradas({ pagedEntradas, page, setPage, totalP
                             <DataTable.Row key={entrada.id}>
                                 <DataTable.Cell style={tw`w-64`}>{renderNombreCompleto(entrada.user)}</DataTable.Cell>
                                 <DataTable.Cell style={tw`w-44`}>
-                                    {format(new Date(entrada.created_at), "dd/MM/yyyy, h:mm a", { locale: es })}
+                                    {formatFecha(entrada.created_at)}
                                 </DataTable.Cell>
-                                <DataTable.Cell style={tw`w-28`}>{renderRol(entrada.user)}</DataTable.Cell>
+                                <DataTable.Cell style={tw`w-20`}>{renderRol(entrada.user)}</DataTable.Cell>
                             </DataTable.Row>
                         ))}
                     </ScrollView>
