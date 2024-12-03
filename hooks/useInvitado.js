@@ -7,7 +7,8 @@ import { useAuthContext } from "../context/AuthContext";
 import { createInvitado, getEntradas } from "../services/InvitadosService";
 import { alertSucces, alertWarning } from "../utilities/toast/Toast";
 
-export default function useInvitado(itemsPerPage) {
+export default function useInvitado() {
+    const itemsPerPage = 20;
     const ahora = new Date();
     const zonaHoraria = "America/Bogota";
     const vencimiento = addHours(ahora, 12);
@@ -16,12 +17,12 @@ export default function useInvitado(itemsPerPage) {
     const datosQR = { usuario: invitacion, fechaVencimiento };
     const dataString = JSON.stringify(datosQR);
     const { token, credenciales } = useAuthContext();
+
     const [loading, setLoading] = useState(false);
     const [generado, setGenerado] = useState(false);
     const [invitacion, setInvitacion] = useState({});
     const [entradas, setEntradas] = useState([]);
     const [busqueda, setBusqueda] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
     const [page, setPage] = useState(0);
     const [pagedEntradas, setPagedEntradas] = useState([]);
     const [invitado, setInvitado] = useState({
@@ -33,6 +34,8 @@ export default function useInvitado(itemsPerPage) {
         Documento: "",
         Status: false,
     });
+
+    //================= RECARGAR ===============================
 
     const recargar = () => {
         setInvitado({
@@ -92,31 +95,12 @@ export default function useInvitado(itemsPerPage) {
         }
     };
 
-    //================= Filtro de busqueda =======================
-
-    const handleBusqueda = (text) => {
-        setBusqueda(text);
-    };
-
-    const handleSearch = () => {
-        setSearchQuery(busqueda);
-    };
-
     //================= ENTRADAS ===============================
 
     const entradasInvitados = async () => {
         try {
             setLoading(true);
             const data = await getEntradas(token);
-            if (searchQuery) {
-                const searchDate = new Date(searchQuery);
-                const searchDateString = searchDate.toISOString().split('T')[0];
-                data = data.filter(entrada => {
-                    const entradaDate = new Date(entrada.created_at);
-                    const entradaDateString = entradaDate.toISOString().split('T')[0];
-                    return entradaDateString === searchDateString;
-                });
-            }
             setEntradas(data);
         } catch (error) {
             alertWarning(error.message);
@@ -128,14 +112,45 @@ export default function useInvitado(itemsPerPage) {
     useFocusEffect(
         useCallback(() => {
             entradasInvitados();
-        }, [searchQuery])
+        }, [])
     );
+
+    //================= Filtro de busqueda =======================
+
+    const handleBusqueda = (text) => {
+        setBusqueda(text);
+    };
+
+    const normalizeText = (text) => {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    };
+
+    const filterBusqueda = (listado, busqueda) => {
+        if (!busqueda) return listado;
+
+        const busquedaNormalizada = normalizeText(busqueda);
+        const palabrasBusqueda = busquedaNormalizada.split(/\s+/);
+
+        return listado.filter((dato) => {
+            const nombreCompleto = dato.Nombre + " " + dato.Apellidos;
+            const documento = normalizeText(dato.Documento);
+            const nombreNormalizado = normalizeText(nombreCompleto);
+            const fecha = new Date(dato.fecha).toISOString().split('T')[0];
+            return palabrasBusqueda.every(palabra =>
+                nombreNormalizado.includes(palabra) || documento.includes(palabra) || fecha.includes(palabra)
+            );
+        });
+    };
+
+    const listadoFiltrado = filterBusqueda(entradas, busqueda);
 
     useEffect(() => {
         const startIndex = page * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        setPagedEntradas(entradas.slice(startIndex, endIndex));
-    }, [entradas, page, itemsPerPage]);
+        setPagedEntradas(listadoFiltrado.slice(startIndex, endIndex));
+    }, [entradas, page, itemsPerPage, busqueda]);
+
+    const totalPages = Math.ceil(listadoFiltrado.length / itemsPerPage);
 
     return {
         dataString,
@@ -145,11 +160,10 @@ export default function useInvitado(itemsPerPage) {
         fechaVencimientoTexto,
         entradas,
         page,
-        totalPages: Math.ceil(entradas.length / itemsPerPage),
-        pagedEntradas,
+        totalPages,
+        lista: pagedEntradas.slice(page * itemsPerPage, (page + 1) * itemsPerPage),
         busqueda,
         handleBusqueda,
-        handleSearch,
         handleChange,
         handleSubmit,
         recargar,

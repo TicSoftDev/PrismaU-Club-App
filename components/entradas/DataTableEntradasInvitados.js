@@ -34,14 +34,19 @@ export default function DataTableEntradasInvitados({ pagedEntradas, page, setPag
 
                     <ScrollView>
                         {
-                            pagedEntradas.map((entrada) => (
-                                <DataTable.Row key={entrada.id}>
-                                    <DataTable.Cell style={tw`w-56`}>{entrada.Nombre + " " + entrada.Apellidos}</DataTable.Cell>
-                                    <DataTable.Cell style={tw`w-44`}>{entrada.TipoDocumento + " " + entrada.Documento}</DataTable.Cell>
-                                    <DataTable.Cell style={tw`w-44`}>{formatFecha(entrada.fecha)}</DataTable.Cell>
-                                    <DataTable.Cell style={tw`w-52`}>{entrada.NombreSocio + " " + entrada.ApellidosSocio}</DataTable.Cell>
-                                </DataTable.Row>
-                            ))
+                            pagedEntradas.length === 0 ? (
+                                <View style={tw`p-5`}>
+                                    <Text style={tw`text-lg text-gray-500`}>No hay resultados</Text>
+                                </View>
+                            ) :
+                                pagedEntradas.map((entrada) => (
+                                    <DataTable.Row key={entrada.id}>
+                                        <DataTable.Cell style={tw`w-56`}>{entrada.Nombre + " " + entrada.Apellidos}</DataTable.Cell>
+                                        <DataTable.Cell style={tw`w-44`}>{entrada.TipoDocumento + " " + entrada.Documento}</DataTable.Cell>
+                                        <DataTable.Cell style={tw`w-44`}>{formatFecha(entrada.fecha)}</DataTable.Cell>
+                                        <DataTable.Cell style={tw`w-52`}>{entrada.NombreSocio + " " + entrada.ApellidosSocio}</DataTable.Cell>
+                                    </DataTable.Row>
+                                ))
                         }
                     </ScrollView>
 
