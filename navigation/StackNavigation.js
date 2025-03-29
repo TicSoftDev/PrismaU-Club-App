@@ -21,6 +21,7 @@ import SplashScreen from "../screens/splash/SplashScreen";
 import BotonLogout from "../utilities/Header/BotonLogout";
 import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { TopNavigation } from "./TopNavigation";
+import PoliticasScreen from "../screens/politicas/PoliticasScreen";
 
 const Stack = createStackNavigator();
 
@@ -93,6 +94,10 @@ export const StackNavigation = () => {
                         headerRight: () => <BotonLogout />
                     }} />
                     <Stack.Screen name={Routes.ENCUESTA} component={DetalleEncuesta} options={{
+                        headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                        headerRight: () => <BotonLogout />
+                    }} />
+                    <Stack.Screen name={Routes.POLITICAS} component={PoliticasScreen} options={{
                         headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
                         headerRight: () => <BotonLogout />
                     }} />

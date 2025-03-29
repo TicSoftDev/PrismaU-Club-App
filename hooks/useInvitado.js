@@ -2,21 +2,21 @@ import { useFocusEffect } from "@react-navigation/native";
 import { addHours } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 import { es } from "date-fns/locale";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { createInvitado, getEntradas } from "../services/InvitadosService";
 import { alertSucces, alertWarning } from "../utilities/toast/Toast";
 
 export default function useInvitado() {
     const itemsPerPage = 20;
-    const ahora = new Date();
     const zonaHoraria = "America/Bogota";
-    const vencimiento = addHours(ahora, 12);
-    const fechaVencimientoTexto = formatInTimeZone(vencimiento, zonaHoraria, "PPpp", { locale: es });
-    const fechaVencimiento = vencimiento.toISOString();
-    const datosQR = { usuario: invitacion, fechaVencimiento };
-    const dataString = JSON.stringify(datosQR);
     const { token, credenciales } = useAuthContext();
+
+    const fechaVencimiento = useMemo(() => addHours(new Date(), 12).toISOString(), []);
+    const fechaVencimientoTexto = useMemo(
+        () => formatInTimeZone(new Date(fechaVencimiento), zonaHoraria, "PPpp", { locale: es }),
+        [fechaVencimiento]
+    );
 
     const [loading, setLoading] = useState(false);
     const [generado, setGenerado] = useState(false);
@@ -24,7 +24,7 @@ export default function useInvitado() {
     const [entradas, setEntradas] = useState([]);
     const [busqueda, setBusqueda] = useState('');
     const [page, setPage] = useState(0);
-    const [pagedEntradas, setPagedEntradas] = useState([]);
+
     const [invitado, setInvitado] = useState({
         user_id: credenciales.id,
         Nombre: "",
@@ -34,6 +34,7 @@ export default function useInvitado() {
         Documento: "",
         Status: false,
     });
+    const dataString = useMemo(() => JSON.stringify({ usuario: invitacion, fechaVencimiento }), [invitacion, fechaVencimiento]);
 
     //================= RECARGAR ===============================
 
@@ -67,14 +68,8 @@ export default function useInvitado() {
 
     const handleSubmit = async (e) => {
         try {
-            if (
-                invitado.Nombre === "" ||
-                invitado.Apellidos === "" ||
-                invitado.Documento === "" ||
-                invitado.TipoDocumento === "" ||
-                invitado.Telefono === ""
-            ) {
-                return alertWarning("Hay campos vacios");
+            if (Object.values(invitado).some(value => value === "")) {
+                return alertWarning("Hay campos vacíos");
             }
             setLoading(true);
             const data = await createInvitado(invitado, token);
@@ -86,7 +81,7 @@ export default function useInvitado() {
             } else {
                 alertWarning(
                     "No completado",
-                    "Esta persona superó el límite de invitaciones mensuales."
+                    data.message
                 );
             }
         } catch (error) {
@@ -94,6 +89,14 @@ export default function useInvitado() {
             alertWarning("Invitado" + error.message);
         }
     };
+
+    useEffect(() => {
+        const nuevoDataString = JSON.stringify({ usuario: invitacion, fechaVencimiento });
+
+        if (nuevoDataString !== dataString) {
+            setDataString(nuevoDataString);
+        }
+    }, [invitacion]);
 
     //================= ENTRADAS ===============================
 
@@ -125,32 +128,33 @@ export default function useInvitado() {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     };
 
-    const filterBusqueda = (listado, busqueda) => {
-        if (!busqueda) return listado;
+    const listadoFiltrado = useMemo(() => {
+        if (!busqueda) return entradas;
 
         const busquedaNormalizada = normalizeText(busqueda);
         const palabrasBusqueda = busquedaNormalizada.split(/\s+/);
 
-        return listado.filter((dato) => {
-            const nombreCompleto = dato.Nombre + " " + dato.Apellidos;
-            const documento = normalizeText(dato.Documento);
-            const nombreNormalizado = normalizeText(nombreCompleto);
-            const fecha = new Date(dato.fecha).toISOString().split('T')[0];
+        return entradas.filter(({ Nombre, Apellidos, Documento, fecha }) => {
+            const nombreCompleto = normalizeText(`${Nombre} ${Apellidos}`);
+            const documento = normalizeText(Documento);
+            const fechaNormalizada = new Date(fecha).toISOString().split('T')[0];
+
             return palabrasBusqueda.every(palabra =>
-                nombreNormalizado.includes(palabra) || documento.includes(palabra) || fecha.includes(palabra)
+                nombreCompleto.includes(palabra) ||
+                documento.includes(palabra) ||
+                fechaNormalizada.includes(palabra)
             );
         });
-    };
+    }, [entradas, busqueda]);
 
-    const listadoFiltrado = filterBusqueda(entradas, busqueda);
-
-    useEffect(() => {
-        const startIndex = page * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        setPagedEntradas(listadoFiltrado.slice(startIndex, endIndex));
-    }, [entradas, page, itemsPerPage, busqueda]);
+    useEffect(() => { setPage(0); }, [busqueda]);
 
     const totalPages = Math.ceil(listadoFiltrado.length / itemsPerPage);
+
+    const pagedEntradas = useMemo(() => {
+        const startIndex = page * itemsPerPage;
+        return listadoFiltrado.slice(startIndex, startIndex + itemsPerPage);
+    }, [listadoFiltrado, page, itemsPerPage]);
 
     return {
         dataString,
@@ -161,7 +165,7 @@ export default function useInvitado() {
         entradas,
         page,
         totalPages,
-        lista: pagedEntradas.slice(page * itemsPerPage, (page + 1) * itemsPerPage),
+        lista: pagedEntradas,
         busqueda,
         handleBusqueda,
         handleChange,

@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { getEntradas } from '../services/AccesosService';
 import { alertWarning } from '../utilities/toast/Toast';
@@ -11,17 +11,15 @@ function useAccesos() {
     const [entradas, setEntradas] = useState([]);
     const [busqueda, setBusqueda] = useState('');
     const [page, setPage] = useState(0);
-    const [pagedEntradas, setPagedEntradas] = useState([]);
 
-    //========== CONSULTAR =======================
+    //========== CONSULTAR ACCESOS =======================
 
     const consultarAccesos = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
-            let data = await getEntradas(token);
+            const data = await getEntradas(token);
             setEntradas(data);
         } catch (e) {
-            setLoading(false);
             alertWarning(e.message);
         } finally {
             setLoading(false);
@@ -34,42 +32,39 @@ function useAccesos() {
         }, [])
     );
 
-    //========== BUSQUEDA =======================
+    //========== FILTRO DE BÚSQUEDA =======================
 
-    const handleBusqueda = (text) => {
-        setBusqueda(text);
-    };
+    const handleBusqueda = (text) => setBusqueda(text);
 
-    const normalizeText = (text) => {
-        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    };
+    const normalizeText = (text = '') =>
+        text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-    const filterBusqueda = (listado, busqueda) => {
-        if (!busqueda) return listado;
+    const listadoFiltrado = useMemo(() => {
+        if (!busqueda) return entradas;
 
         const busquedaNormalizada = normalizeText(busqueda);
         const palabrasBusqueda = busquedaNormalizada.split(/\s+/);
 
-        return listado.filter((dato) => {
-            const usuario = dato.user.asociado ? dato.user.asociado : dato.user.adherente ? dato.user.adherente : dato.user.familiar;
-            const nombreNormalizado = normalizeText(usuario.Nombre + " " + usuario.Apellidos);
-            const documento = normalizeText(usuario.Documento);
-            const fecha = new Date(dato.created_at).toISOString().split('T')[0];
-            return palabrasBusqueda.every(palabra =>
+        return entradas.filter((dato) => {
+            const usuario = dato.user.asociado ?? dato.user.adherente ?? dato.user.familiar;
+            const nombreCompleto = `${usuario?.Nombre ?? ''} ${usuario?.Apellidos ?? ''}`;
+            const documento = normalizeText(usuario?.Documento ?? '');
+            const nombreNormalizado = normalizeText(nombreCompleto);
+            const fecha = dato.created_at?.split('T')[0] || '';
+
+            return palabrasBusqueda.every((palabra) =>
                 nombreNormalizado.includes(palabra) || documento.includes(palabra) || fecha.includes(palabra)
             );
         });
-    };
+    }, [entradas, busqueda]);
 
-    const listadoFiltrado = filterBusqueda(entradas, busqueda);
-
-    useEffect(() => {
-        const startIndex = page * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        setPagedEntradas(listadoFiltrado.slice(startIndex, endIndex));
-    }, [entradas, page, itemsPerPage, busqueda]);
+    //========== PAGINACIÓN =======================
 
     const totalPages = Math.ceil(listadoFiltrado.length / itemsPerPage);
+    const pagedEntradas = useMemo(() => {
+        const startIndex = page * itemsPerPage;
+        return listadoFiltrado.slice(startIndex, startIndex + itemsPerPage);
+    }, [listadoFiltrado, page]);
 
     return {
         loading,

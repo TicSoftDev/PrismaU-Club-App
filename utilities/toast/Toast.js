@@ -23,7 +23,7 @@ export const alertWarning = (title, message) => {
         position: 'bottom',
         text1: title,
         text2: message,
-        visibilityTime: 4000,
+        visibilityTime: 6000,
         autoHide: true,
         text1Style: {
             color: '#3093f0',

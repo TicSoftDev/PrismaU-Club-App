@@ -75,9 +75,7 @@ function useEncuestas() {
                     respuesta_id: checked
                 })
             };
-            console.log(finalRespuestas);
             const data = await responderEncuesta(token, finalRespuestas);
-            console.log(data);
             if (data.status) {
                 alertSucces('Respuestas enviadas');
             } else {
