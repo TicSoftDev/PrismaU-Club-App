@@ -62,9 +62,10 @@ export const TopNavigation = () => {
     };
 
     const accessibleRoutes = routes.filter(route => {
-        const hasAccess = route.roles.includes(credenciales.Rol);
-        return hasAccess;
+        const userRole = Number(credenciales?.Rol);
+        return route.roles.includes(userRole);
     });
+
 
     if (accessibleRoutes.length === 0) {
         return null;
