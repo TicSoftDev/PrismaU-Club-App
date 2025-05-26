@@ -22,6 +22,7 @@ import BotonLogout from "../utilities/Header/BotonLogout";
 import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { TopNavigation } from "./TopNavigation";
 import PoliticasScreen from "../screens/politicas/PoliticasScreen";
+import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 

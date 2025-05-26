@@ -15,9 +15,24 @@
         "buildType": "app-bundle"
       }
     },
-    "production": {}
+    "production": {
+      "ios": {
+        "appleTeamId": "3J56T6PHY5",
+        "buildType": "release"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      },
+    }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "javiersierrac@gmail.com"
+      },
+      "android": {
+        "track": "production"
+      }
+    }
   }
 }
