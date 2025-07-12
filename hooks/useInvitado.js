@@ -6,17 +6,24 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { createInvitado, getEntradas } from "../services/InvitadosService";
 import { alertSucces, alertWarning } from "../utilities/toast/Toast";
+import useCantidad from "./useCantidad";
 
 export default function useInvitado() {
     const itemsPerPage = 20;
     const zonaHoraria = "America/Bogota";
     const { token, credenciales } = useAuthContext();
 
+    const { refrescarContadores } = useCantidad();
+
     const fechaVencimiento = useMemo(() => addHours(new Date(), 12).toISOString(), []);
-    const fechaVencimientoTexto = useMemo(
-        () => formatInTimeZone(new Date(fechaVencimiento), zonaHoraria, "PPpp", { locale: es }),
-        [fechaVencimiento]
-    );
+    const fechaVencimientoTexto = useMemo(() =>
+        formatInTimeZone(
+            new Date(fechaVencimiento),
+            zonaHoraria,
+            "d 'de' MMMM 'de' yyyy h:mm a", 
+            { locale: es }
+        ).replace(/\bpm\b/, "PM").replace(/\bam\b/, "AM"), 
+        [fechaVencimiento]);
 
     const [loading, setLoading] = useState(false);
     const [generado, setGenerado] = useState(false);
@@ -78,6 +85,7 @@ export default function useInvitado() {
                 setGenerado(true);
                 setInvitacion(data.data);
                 alertSucces("Se ha generado el codigo de invitación");
+                await refrescarContadores();
             } else {
                 alertWarning(
                     "No completado",
@@ -159,6 +167,7 @@ export default function useInvitado() {
     return {
         dataString,
         invitado,
+        invitacion,
         generado,
         loading,
         fechaVencimientoTexto,

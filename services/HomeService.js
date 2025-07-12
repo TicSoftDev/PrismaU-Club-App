@@ -30,6 +30,20 @@ export const getMenusBienestar = async (id, token) => {
     }
 }
 
+export const getMenusPagos = async (id, token) => {
+    try {
+        const res = await axios.get(URL + id + '/pagos', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+}
+
 export const getMenusPerfil = async (id, token) => {
     try {
         const res = await axios.get(URL + id + '/perfil', {

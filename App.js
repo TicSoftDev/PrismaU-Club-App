@@ -5,6 +5,7 @@ import { PaperProvider } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import { AuthProvider } from './context/AuthContext';
 import { StackNavigation } from './navigation/StackNavigation';
+import { toastConfig } from './utilities/toast/toastConfig';
 
 Ionicons.loadFont();
 export default function App() {
@@ -14,9 +15,9 @@ export default function App() {
       <NavigationContainer>
         <PaperProvider>
           <StackNavigation />
-          <Toast />
         </PaperProvider>
       </NavigationContainer>
+      <Toast config={toastConfig} topOffset={60} />
     </AuthProvider>
   );
 }

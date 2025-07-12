@@ -7,11 +7,14 @@ import LoginScreen from "../screens/auth/LoginScreen";
 import RecuperacionScreen from "../screens/auth/RecuperacionScreen";
 import RegistroScreen from "../screens/auth/RegistroScreen";
 import VerifyCodeScreen from "../screens/auth/VerifyCodeScreen";
+import CuotasBaileScreen from "../screens/cuotasBaile/CuotasBaileScreen";
 import DetalleEncuesta from "../screens/encuestas/DetalleEncuesta";
 import EncuestasScreen from "../screens/encuestas/EncuestasScreen";
 import EventosScreen from "../screens/eventos/EventosScreen";
 import FamiliaresScreen from "../screens/familiares/FamiliaresScreen";
 import InvitacionScreen from "../screens/invitaciones/InvitacionScreen";
+import MensualidadScreen from "../screens/mensualidades/MensualidadScreen";
+import PoliticasScreen from "../screens/politicas/PoliticasScreen";
 import ReservarScreen from "../screens/reservas/ReservarScreen";
 import ReservasScreen from "../screens/reservas/ReservasScreen";
 import CrearSolicitudScreen from "../screens/solicitudes/CrearSolicitudScreen";
@@ -21,8 +24,6 @@ import SplashScreen from "../screens/splash/SplashScreen";
 import BotonLogout from "../utilities/Header/BotonLogout";
 import HeaderNavigation from "../utilities/Header/HeaderNavigation";
 import { TopNavigation } from "./TopNavigation";
-import PoliticasScreen from "../screens/politicas/PoliticasScreen";
-import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -99,6 +100,14 @@ export const StackNavigation = () => {
                         headerRight: () => <BotonLogout />
                     }} />
                     <Stack.Screen name={Routes.POLITICAS} component={PoliticasScreen} options={{
+                        headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                        headerRight: () => <BotonLogout />
+                    }} />
+                    <Stack.Screen name={Routes.MENSUALIDADES} component={MensualidadScreen} options={{
+                        headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
+                        headerRight: () => <BotonLogout />
+                    }} />
+                    <Stack.Screen name={Routes.CUOTASBAILES} component={CuotasBaileScreen} options={{
                         headerTitle: () => <HeaderNavigation />, headerStyle: styles.headerStyle, headerBackTitleVisible: false, headerTitleAlign: 'center',
                         headerRight: () => <BotonLogout />
                     }} />

@@ -1,26 +1,24 @@
-import React, { useState, useMemo } from 'react';
-import { View, useWindowDimensions, TouchableOpacity, Text } from 'react-native';
-import { SceneMap, TabView } from 'react-native-tab-view';
 import { Ionicons } from '@expo/vector-icons';
+import { useMemo, useState } from 'react';
+import { Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { SceneMap, TabView } from 'react-native-tab-view';
 import { useAuthContext } from '../context/AuthContext';
-import { Routes } from '../routes/Routes';
 
-// Pantallas
-import HomeScreen from '../screens/home/HomeScreen';
-import CarnetScreen from '../screens/carnet/CarnetScreen';
-import QrScreen from '../screens/qr/QrScreen';
-import ProfileScreen from '../screens/perfil/ProfileScreen';
-import ScanQrScreen from '../screens/qr/ScanQrScreen';
 import SearchScreen from '../screens/buscador/SearchScreen';
-import EntradasScreen from '../screens/entradas/EntradasScreen';
+import CarnetScreen from '../screens/carnet/CarnetScreen';
 import EntradasInvitadosScreen from '../screens/entradas/EntradasInvitadosScreen';
+import EntradasScreen from '../screens/entradas/EntradasScreen';
+import HomeScreen from '../screens/home/HomeScreen';
+import ProfileScreen from '../screens/perfil/ProfileScreen';
+import QrScreen from '../screens/qr/QrScreen';
+import ScanQrScreen from '../screens/qr/ScanQrScreen';
 
 export const TopNavigation = () => {
   const layout = useWindowDimensions();
   const { credenciales } = useAuthContext();
   const userRole = Number(credenciales?.Rol);
+  const [index, setIndex] = useState(0);
 
-  // Definimos las rutas disponibles
   const availableRoutes = useMemo(() => [
     { key: 'home', title: 'Inicio', icon: 'home-outline', component: HomeScreen, roles: [1, 2, 3, 4, 5, 6] },
     { key: 'carnet', title: 'Carnet', icon: 'card-outline', component: CarnetScreen, roles: [1, 2, 3, 4, 5] },
@@ -32,19 +30,24 @@ export const TopNavigation = () => {
     { key: 'profile', title: 'Perfil', icon: 'person-circle-outline', component: ProfileScreen, roles: [1, 2, 3, 4, 5, 6] },
   ], []);
 
-  // Filtramos por rol
   const filteredRoutes = availableRoutes.filter(r => r.roles.includes(userRole));
 
-  // SceneMap requiere un objeto con funciones
   const sceneMap = useMemo(() => {
     const map = {};
-    filteredRoutes.forEach(r => {
-      map[r.key] = r.component;
+    filteredRoutes.forEach((route, routeIndex) => {
+      map[route.key] = () => {
+        const Component = route.component;
+        const isActive = index === routeIndex;
+
+        if (route.key === 'scanqr') {
+          return <Component isActive={isActive} />;
+        }
+
+        return <Component />;
+      };
     });
     return SceneMap(map);
-  }, [filteredRoutes]);
-
-  const [index, setIndex] = useState(0);
+  }, [filteredRoutes, index]);
 
   const renderTabBar = props => (
     <View style={{ flexDirection: 'row', backgroundColor: '#fff' }}>
@@ -84,6 +87,8 @@ export const TopNavigation = () => {
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
       renderTabBar={renderTabBar}
+      lazy={true}
+      lazyPreloadDistance={0}
     />
   );
 };

@@ -26,6 +26,8 @@ export const Routes = {
     ENCUESTAS: 'Encuestas',
     ENCUESTA: 'Encuesta',
     POLITICAS: 'Politicas',
+    MENSUALIDADES: 'Mensualidades',
+    CUOTASBAILES: 'CuotasBaile',
 }
 
 export const servidorBack = "https://www.apiclubsincelejo.prismau.co";

@@ -9,7 +9,8 @@ import Forbiden from '../../components/global/Forbiden';
 
 export default function InvitacionScreen() {
 
-  const { invitado, dataString, generado, loading, fechaVencimientoTexto, handleChange, handleSubmit, recargar } = useInvitado();
+  const { invitado, dataString, generado, loading, fechaVencimientoTexto, invitacion,
+    handleChange, handleSubmit, recargar } = useInvitado();
   const { user } = useAuthContext();
 
   return (
@@ -23,7 +24,7 @@ export default function InvitacionScreen() {
             <Forbiden estado={user.Estado} />
           :
           <CodigoInvitacion dataString={dataString} recargar={recargar}
-            fechaVencimiento={fechaVencimientoTexto} />
+            fechaVencimiento={fechaVencimientoTexto} invitacion={invitacion} />
       }
     </>
   )

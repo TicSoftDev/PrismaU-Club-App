@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
-import { getMenusBienestar, getMenusPerfil, getMenusPortal } from '../services/HomeService';
+import { getMenusBienestar, getMenusPagos, getMenusPerfil, getMenusPortal } from '../services/HomeService';
 
 function useHome() {
 
     const { token, credenciales } = useAuthContext();
-    const [loadingPortal, setLoadingPortal] = React.useState(false);
-    const [loadingBienestar, setLoadingBienestar] = React.useState(false);
-    const [loadingPerfil, setLoadingPerfil] = React.useState(false);
-    const [menuPortal, setMenuPortal] = React.useState([]);
-    const [menuBienestar, setMenuBienestar] = React.useState([]);
-    const [menuPerfil, setMenuPerfil] = React.useState([]);
+    const [loadingPortal, setLoadingPortal] = useState(false);
+    const [loadingBienestar, setLoadingBienestar] = useState(false);
+    const [loadingPagos, setLoadingPagos] = useState(false);
+    const [loadingPerfil, setLoadingPerfil] = useState(false);
+    const [menuPortal, setMenuPortal] = useState([]);
+    const [menuBienestar, setMenuBienestar] = useState([]);
+    const [menuPagos, setMenuPagos] = useState([]);
+    const [menuPerfil, setMenuPerfil] = useState([]);
 
     const consultarMenusPortal = async () => {
         setLoadingPortal(true);
@@ -36,6 +38,18 @@ function useHome() {
         setLoadingBienestar(false);
     }
 
+    const consultarMenusPagos = async () => {
+        setLoadingPagos(true);
+        try {
+            const data = await getMenusPagos(credenciales.Rol, token);
+            setMenuPagos(data);
+        } catch (error) {
+            console.log(error.message);
+            throw error.message;
+        }
+        setLoadingPagos(false);
+    }
+
     const consultarMenusPerfil = async () => {
         setLoadingPerfil(true);
         try {
@@ -49,13 +63,27 @@ function useHome() {
     }
 
     useEffect(() => {
-        consultarMenusPortal();
-        consultarMenusBienestar();
-        consultarMenusPerfil();
+        const rol = Number(credenciales?.Rol);
+        if (rol !== 2 || rol !== 3) {
+            consultarMenusPerfil();
+        }
+        if (rol === 2 || rol === 3) {
+            consultarMenusPortal();
+            consultarMenusBienestar();
+            consultarMenusPagos();
+            consultarMenusPerfil();
+        }
     }, [credenciales.Rol])
 
     return {
-        menuPortal, loadingPortal, menuBienestar, loadingBienestar, menuPerfil, loadingPerfil
+        menuPortal,
+        loadingPortal,
+        menuBienestar,
+        loadingBienestar,
+        menuPerfil,
+        loadingPerfil,
+        menuPagos,
+        loadingPagos
     }
 }
 

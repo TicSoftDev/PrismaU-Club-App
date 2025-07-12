@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PrismaU",
-    "slug": "prismau-identidad",
+    "slug": "PrismaU-Club",
     "version": "9.3.3",
     "orientation": "portrait",
     "icon": "./assets/img/logo.png",
@@ -45,10 +45,11 @@
     },
     "extra": {
       "eas": {
-        "url": "https://u.expo.dev/6c0c477b-5217-4dc5-b206-82ae14cdcb20",
-        "projectId": "6c0c477b-5217-4dc5-b206-82ae14cdcb20"
+        "projectId": "1db1ae9c-d874-47c2-b5d2-061e243bfff4"
       }
     },
-    "plugins": []
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

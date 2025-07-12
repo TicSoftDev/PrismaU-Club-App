@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { getCantidadFamiliaresSocio } from "../services/FamiliaresService";
 import { getCantidadInvitadosSocio } from "../services/InvitadosService";
-import { getCantidadSolicitudesSocio } from "../services/SolicitudesService";
 import { getCantidadReservasSocio } from "../services/ReservasService";
+import { getCantidadSolicitudesSocio } from "../services/SolicitudesService";
 import { alertWarning } from "../utilities/toast/Toast";
 
 export default function useCantidad() {
@@ -16,11 +16,12 @@ export default function useCantidad() {
 
   const cantidadFamiliaresSocio = async () => {
     try {
-      const rol = credenciales.Rol == 2 ? "Asociado" : "Adherente";
-      const data = await getCantidadFamiliaresSocio(user.id, rol, token);
+      const rolNombre = credenciales.Rol == 2 ? "Asociado" : "Adherente";
+      const data = await getCantidadFamiliaresSocio(user.id, rolNombre, token);
       setContFamiliaresSocio(data);
     } catch (error) {
-      alertWarning("Count error", error.message);
+      alertWarning("Count error", error.message || error);
+      console.log("count familiares", error);
     }
   };
 
@@ -29,7 +30,8 @@ export default function useCantidad() {
       const data = await getCantidadInvitadosSocio(credenciales.id, token);
       setContInvitadosSocio(data);
     } catch (error) {
-      alertWarning("Count error", error.message);
+      alertWarning("Count error", error.message || error);
+      console.log("count invitados", error);
     }
   };
 
@@ -38,7 +40,8 @@ export default function useCantidad() {
       const data = await getCantidadReservasSocio(token, credenciales.id);
       setContReservasSocio(data);
     } catch (error) {
-      alertWarning("Count error", error.message);
+      alertWarning("Count error", error.message || error);
+      console.log("count reservas", error);
     }
   };
 
@@ -47,19 +50,24 @@ export default function useCantidad() {
       const data = await getCantidadSolicitudesSocio(token, credenciales.id);
       setContSolicitudesSocio(data);
     } catch (error) {
-      alertWarning("Count error", error.message);
+      alertWarning("Count error", error.message || error);
+      console.log("count solicitudes", error);
     }
   };
 
-  // ✅ Función pública para refrescar desde cualquier componente
-  const refrescarContadores = () => {
-    cantidadFamiliaresSocio();
-    cantidadInvitadosSocio();
-    cantidadReservasSocio();
-    cantidadSolicitudesSocio();
-  };
+  const refrescarContadores = useCallback(async () => {
+    const rol = Number(credenciales?.Rol);
+    if (rol !== 2 || rol !== 3) return;
 
-  // Cargar una vez al montar
+    await Promise.all([
+      cantidadFamiliaresSocio(),
+      cantidadInvitadosSocio(),
+      cantidadReservasSocio(),
+      cantidadSolicitudesSocio(),
+    ]);
+  }, [credenciales]);
+
+
   useEffect(() => {
     refrescarContadores();
   }, []);
