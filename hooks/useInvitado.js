@@ -5,7 +5,7 @@ import { es } from "date-fns/locale";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { createInvitado, getEntradas } from "../services/InvitadosService";
-import { alertSucces, alertWarning } from "../utilities/toast/Toast";
+import { alertSuccess, alertWarning } from "../utilities/toast/Toast";
 import useCantidad from "./useCantidad";
 
 export default function useInvitado() {
@@ -20,9 +20,9 @@ export default function useInvitado() {
         formatInTimeZone(
             new Date(fechaVencimiento),
             zonaHoraria,
-            "d 'de' MMMM 'de' yyyy h:mm a", 
+            "d 'de' MMMM 'de' yyyy h:mm a",
             { locale: es }
-        ).replace(/\bpm\b/, "PM").replace(/\bam\b/, "AM"), 
+        ).replace(/\bpm\b/, "PM").replace(/\bam\b/, "AM"),
         [fechaVencimiento]);
 
     const [loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ export default function useInvitado() {
             if (data.status) {
                 setGenerado(true);
                 setInvitacion(data.data);
-                alertSucces("Se ha generado el codigo de invitación");
+                alertSuccess("Se ha generado el codigo de invitación");
                 await refrescarContadores();
             } else {
                 alertWarning(
