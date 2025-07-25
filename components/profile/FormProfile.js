@@ -1,12 +1,11 @@
-import React from 'react';
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tw from 'tailwind-react-native-classnames';
 import imagenes from '../../assets/img/imagenes';
 import { useAuthContext } from '../../context/AuthContext';
 import { servidorBack } from '../../routes/Routes';
 
-const FormProfile = ({ toggleModal, eliminarCuenta, loading, menu }) => {
+const FormProfile = ({ toggleModal }) => {
     const { user } = useAuthContext();
 
     return (
@@ -32,17 +31,6 @@ const FormProfile = ({ toggleModal, eliminarCuenta, loading, menu }) => {
                 <TouchableOpacity style={tw`bg-green-500 p-2 rounded-full shadow`} onPress={toggleModal}>
                     <Text style={tw`text-white text-center`}>Cambiar Contraseña</Text>
                 </TouchableOpacity>
-            </View>
-            <View style={tw`bg-white px-5 shadow-sm`}>
-                {loading ? (
-                    <ActivityIndicator size="small" color="#0000ff" />
-                ) :
-                    menu.map((item, index) => (
-                        <TouchableOpacity style={tw`bg-red-500 p-2 rounded-full shadow`} onPress={eliminarCuenta} key={index}>
-                            <Text style={tw`text-white text-center`}>{item.Name}</Text>
-                        </TouchableOpacity>
-                    ))
-                }
             </View>
         </ScrollView>
     );

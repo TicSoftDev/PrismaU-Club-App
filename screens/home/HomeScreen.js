@@ -1,8 +1,5 @@
-import { useFocusEffect } from '@react-navigation/native';
-import { useCallback } from 'react';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
-
 import Bienvenida from '../../components/home/Bienvenida';
 import CardsContadores from '../../components/home/CardsContadores';
 import Logo from '../../components/home/Logo';
@@ -23,7 +20,7 @@ export default function HomeScreen() {
     <ScrollView style={tw`flex-1`}>
       <Bienvenida user={user} rol={credenciales.Rol} />
       {
-        (credenciales.Rol == 2 || credenciales.Rol == 3) ?
+        (Number(credenciales.Rol) === 2 || Number(credenciales.Rol) === 3 || (Number(credenciales.Rol) === 5 && user.Parentesco === "Esposo (a)")) ?
           <>
             <CardsContadores
               familiares={contFamiliaresSocio}

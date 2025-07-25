@@ -50,7 +50,10 @@
     "tailwind-react-native-classnames": "^1.5.1",
     "text-encoding": "^0.7.0",
     "use-latest-callback": "^0.2.3",
-    "expo-camera": "~16.1.10"
+    "expo-camera": "~16.1.10",
+    "expo-notifications": "~0.31.4",
+    "expo-device": "~7.1.4",
+    "expo-dev-client": "~5.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

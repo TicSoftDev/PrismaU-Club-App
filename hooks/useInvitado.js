@@ -94,7 +94,7 @@ export default function useInvitado() {
             }
         } catch (error) {
             setLoading(false);
-            alertWarning("Invitado" + error.message);
+            alertWarning("No completado", error.message);
         }
     };
 

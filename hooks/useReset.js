@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Routes } from "../routes/Routes";
 import { changePassword, sendCode, validateCode } from "../services/ResetService";
-import { alertSucces, alertWarning } from "../utilities/toast/Toast";
+import { alertSuccess, alertWarning } from "../utilities/toast/Toast";
 
 function useReset() {
     const navigate = useNavigation();
@@ -28,7 +28,7 @@ function useReset() {
         try {
             const data = await sendCode(documento);
             if (data.status) {
-                alertSucces("Se envio el código correctamente");
+                alertSuccess("Se envio el código correctamente");
                 navigate.navigate(Routes.VALIDAR);
             }
             else {
@@ -92,7 +92,7 @@ function useReset() {
         try {
             const data = await changePassword(code, password);
             if (data.status) {
-                alertSucces("Contraseña actualizada correctamente");
+                alertSuccess("Contraseña actualizada correctamente");
                 navigate.navigate(Routes.LOGIN);
             }
             else {

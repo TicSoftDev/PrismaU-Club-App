@@ -23,9 +23,9 @@ export const TopNavigation = () => {
     { key: 'home', title: 'Inicio', icon: 'home-outline', component: HomeScreen, roles: [1, 2, 3, 4, 5, 6] },
     { key: 'carnet', title: 'Carnet', icon: 'card-outline', component: CarnetScreen, roles: [1, 2, 3, 4, 5] },
     { key: 'qr', title: 'QR', icon: 'qr-code-outline', component: QrScreen, roles: [1, 2, 3, 4, 5] },
-    { key: 'scanqr', title: 'Escanear', icon: 'scan-outline', component: ScanQrScreen, roles: [6] },
+    { key: 'scanqr', title: 'Escaner', icon: 'scan-outline', component: ScanQrScreen, roles: [6] },
     { key: 'search', title: 'Buscar', icon: 'search-outline', component: SearchScreen, roles: [6] },
-    { key: 'entradas', title: 'Entradas', icon: 'log-in-outline', component: EntradasScreen, roles: [6] },
+    { key: 'entradas', title: 'Accesos', icon: 'log-in-outline', component: EntradasScreen, roles: [6] },
     { key: 'invitados', title: 'Invitados', icon: 'people-outline', component: EntradasInvitadosScreen, roles: [6] },
     { key: 'profile', title: 'Perfil', icon: 'person-circle-outline', component: ProfileScreen, roles: [1, 2, 3, 4, 5, 6] },
   ], []);
@@ -71,7 +71,7 @@ export const TopNavigation = () => {
               size={24}
               color={focused ? '#09892F' : 'gray'}
             />
-            <Text style={{ color: focused ? '#09892F' : 'gray', fontSize: 12 }}>
+            <Text style={{ color: focused ? '#09892F' : 'gray', fontSize: 10 }}>
               {found.title}
             </Text>
           </TouchableOpacity>

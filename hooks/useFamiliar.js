@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
-import { getFamiliaresSocio } from '../services/FamiliaresService';
+import { getFamiliaresPareja, getFamiliaresSocio } from '../services/FamiliaresService';
 import { alertWarning } from '../utilities/toast/Toast';
 
 export default function useFamiliar() {
@@ -12,8 +12,14 @@ export default function useFamiliar() {
     const consultarFamiliaresSocio = async () => {
         try {
             setIsLoading(true);
+            let data = [];
             const rol = credenciales.Rol == 2 ? "Asociado" : "Adherente";
-            const data = await getFamiliaresSocio(user.id, rol, token);
+            if (credenciales.Rol == 3 || credenciales.Rol == 2) {
+                data = await getFamiliaresSocio(user.id, rol, token);
+            }
+            if (credenciales.Rol == 5 && user.Parentesco === "Esposo (a)") {
+                data = await getFamiliaresPareja(user.id, token);
+            }
             setIsLoading(false);
             setFamiliares(data);
         } catch (error) {
@@ -26,7 +32,7 @@ export default function useFamiliar() {
 
     useEffect(() => {
         consultarFamiliaresSocio();
-    }, [])
+    }, []);
 
     return {
         familiares, isLoading

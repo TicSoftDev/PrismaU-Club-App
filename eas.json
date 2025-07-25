@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 9.0.1"
+    "version": ">= 10.0.0"
   },
   "build": {
     "development": {
@@ -16,10 +16,7 @@
       }
     },
     "production": {
-      "ios": {
-        "appleTeamId": "3J56T6PHY5",
-        "buildType": "release"
-      },
+      "ios": {},
       "android": {
         "buildType": "app-bundle"
       }

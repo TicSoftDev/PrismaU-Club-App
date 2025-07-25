@@ -18,7 +18,7 @@ const ReservasScreen = () => {
   );
 
   return (
-    <View style={tw`flex-1 bg-gray-100 mb-12`}>
+    <View style={tw`flex-1 bg-gray-100`}>
       <View style={tw`flex flex-row justify-between items-center h-20 w-full bg-green-500 px-4`}>
         <Text style={tw`text-xl font-bold text-white`}>Reservas</Text>
       </View>

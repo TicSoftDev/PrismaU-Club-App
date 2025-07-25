@@ -52,13 +52,31 @@ export default function DataResult({ data }) {
                                         <Text style={tw`text-lg text-green-700 px-5 font-bold mb-2`}>Familiares</Text>
                                         {
                                             data.user.familiar.map((item, index) => (
-                                                <View key={index} style={tw`flex-row items-center p-3 bg-white shadow`}>
-                                                    <FontAwesome5 name="user" size={24} color="green" style={tw`mr-6 ml-2`} />
+                                                <View key={item.id || index}
+                                                    style={tw`flex-row items-center p-4 mb-3 rounded-xl bg-white}`}
+                                                >
+                                                    <View style={tw`mr-4`}>
+                                                        <Image
+                                                            source={item.imagen ? { uri: servidorBack + item.imagen } : imagenes.avatar}
+                                                            style={tw`w-16 h-16 rounded-full border-2 border-gray-300`}
+                                                            resizeMode='cover'
+                                                        />
+                                                    </View>
                                                     <View style={tw`flex-1`}>
-                                                        <Text style={tw`text-lg font-semibold`}>{item.Nombre} {item.Apellidos}</Text>
-                                                        <View style={tw`flex-row justify-between items-center mr-10`}>
-                                                            <Text style={tw`text-sm text-gray-600`}>{item.Documento}</Text>
-                                                            <Text style={tw`text-sm text-gray-600`}>{item.Parentesco}</Text>
+                                                        <Text style={tw`text-lg font-semibold text-gray-800 mb-1`}>
+                                                            {item.Nombre} {item.Apellidos}
+                                                        </Text>
+                                                        <View style={tw`flex-row items-center`}>
+                                                            <FontAwesome5 name="heart" size={12} color="#10B981" style={tw`mr-2`} />
+                                                            <Text style={tw`text-sm text-gray-600 capitalize`}>
+                                                                {item.Parentesco}
+                                                            </Text>
+                                                        </View>
+                                                        <View style={tw`flex-row items-center mt-1`}>
+                                                            <FontAwesome5 name="id-card-alt" size={12} color="#6B7280" style={tw`mr-2`} />
+                                                            <Text style={tw`text-xs text-gray-500`}>
+                                                                {item.Documento}
+                                                            </Text>
                                                         </View>
                                                     </View>
                                                 </View>

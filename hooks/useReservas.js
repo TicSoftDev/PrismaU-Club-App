@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { Routes } from '../routes/Routes';
 import { createReserva, deleteReserva, getReservas } from '../services/ReservasService';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
+import { alertSuccess, alertWarning } from '../utilities/toast/Toast';
 
 const useReservas = () => {
     const itemsPerPage = 6;
@@ -142,7 +142,7 @@ const useReservas = () => {
             const data = await createReserva(token, reserva);
             setIsLoading(false);
             if (data.status) {
-                alertSucces('Espacio Reservado correctamente');
+                alertSuccess('Espacio Reservado correctamente');
                 recargar();
                 navigate.navigate(Routes.RESERVAS);
             } else if (data.status === false && data.message === 'No Disponible') {
@@ -165,7 +165,7 @@ const useReservas = () => {
         try {
             const data = await deleteReserva(token, id);
             if (data.status) {
-                alertSucces('Reserva cancelada');
+                alertSuccess('Reserva cancelada');
                 await consultarReservas();
             } else {
                 alertWarning('No completado', 'No se pudo cancelar');

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { Routes } from '../routes/Routes';
 import { createSolicitudes, getSolicitud, getSolicitudes } from '../services/SolicitudesService';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
+import { alertSuccess, alertWarning } from '../utilities/toast/Toast';
 
 const useSolicitudes = () => {
 
@@ -58,7 +58,7 @@ const useSolicitudes = () => {
             const data = await createSolicitudes(token, solicitud);
             setLoading(false);
             if (data.status) {
-                alertSucces("Solicitud enviada");
+                alertSuccess("Solicitud enviada");
                 recargar();
                 // await consultarSolicitudes();
                 navigation.navigate(Routes.SOLICITUDES);

@@ -10,6 +10,8 @@ import { toastConfig } from './utilities/toast/toastConfig';
 Ionicons.loadFont();
 export default function App() {
 
+  // usePushNotifications();
+
   return (
     <AuthProvider>
       <NavigationContainer>

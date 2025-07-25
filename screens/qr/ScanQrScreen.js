@@ -19,7 +19,7 @@ export default function ScanQrScreen({ isActive = true }) {
   }
 
   return (
-    <View style={tw`flex-1 justify-center mb-12`}>
+    <View style={tw`flex-1 justify-center`}>
       {!scanned && !isExpired ?
         <ScannerQr handleBarCodeScanned={handleBarCodeScanned} scanned={scanned} isActive={isActive} /> :
         isExpired ? <QrExpirado /> :

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "108509165378",
+    "project_id": "club-prismau",
+    "storage_bucket": "club-prismau.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108509165378:android:fa334e142b48f29f35fadb",
+        "android_client_info": {
+          "package_name": "com.ticsoftdev.PrismaUIdClub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzvlD-L3yWmE32eEEdji7GcHrPgC6CU-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,7 +10,7 @@ import { servidorBack } from "../../routes/Routes";
 export default function Carnet({ user, primerNombre, primerApellido, rol, data, }) {
 
   return (
-    <View style={tw`flex-1 justify-center items-center bg-white`}>
+    <View style={tw`flex-1 justify-center items-center`}>
       <View style={styles.card}>
         <View style={styles.banner}>
           <Svg height="300" width="300" viewBox="0 0 200 200">

@@ -29,3 +29,17 @@ export const getFamiliaresSocio = async (id, rol, token) => {
         throw error.message;
     }
 }
+
+export const getFamiliaresPareja = async (id, token) => {
+    try {
+        const res = await axios.get(URL_FAMILIAR + "/pareja/" + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error.message;
+    }
+}

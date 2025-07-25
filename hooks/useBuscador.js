@@ -32,7 +32,7 @@ export default function useBuscador() {
         setIsLoading(true);
         const data = await getUsuario(busqueda, token);
         if (!data.status) {
-            alertWarning("No se encontró el usuario");
+            alertWarning("No completado", "No se encontró el usuario");
         } else {
             setUser(data);
             setSearched(true);

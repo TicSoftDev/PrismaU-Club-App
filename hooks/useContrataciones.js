@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Keyboard } from 'react-native';
 import { registrarse } from '../services/AuthService';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
+import { alertSuccess, alertWarning } from '../utilities/toast/Toast';
 
 function useContrataciones() {
 
@@ -48,7 +48,7 @@ function useContrataciones() {
             setLoading(false);
             if (data.status) {
                 recargar();
-                alertSucces("Gracias por registrarse. Próximamente le confirmaremos su inscripción");
+                alertSuccess("Gracias por registrarse. Próximamente le confirmaremos su inscripción");
             } else {
                 alertWarning("No se pudo registrar");
             }

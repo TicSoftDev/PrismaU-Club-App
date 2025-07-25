@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [credenciales, setCredenciales] = useState({});
+    const [socio, setSocio] = useState(null);
     const [token, setToken] = useState(null);
 
     const checkUserSession = async () => {
@@ -19,6 +20,7 @@ export const AuthProvider = ({ children }) => {
             const userData = await AsyncStorage.getItem('@user');
             const token = await AsyncStorage.getItem('@token');
             const credenciales = await AsyncStorage.getItem('@credenciales');
+            const socioData = await AsyncStorage.getItem('@socio');
             if (token) {
                 try {
                     let expiracion = isTokenExpired(token);
@@ -36,6 +38,7 @@ export const AuthProvider = ({ children }) => {
                 setUser(JSON.parse(userData));
                 setToken(token);
                 setCredenciales(JSON.parse(credenciales));
+                setSocio(socioData ? JSON.parse(socioData) : null);
             }
         } catch (e) {
             console.error('Error en checkUserSession:', e);
@@ -43,7 +46,6 @@ export const AuthProvider = ({ children }) => {
             setIsLoading(false);
         }
     };
-
 
     useEffect(() => {
         checkUserSession();
@@ -57,9 +59,11 @@ export const AuthProvider = ({ children }) => {
             } else {
                 setUser(data.user);
                 setCredenciales(data.credenciales);
+                setSocio(data.socio);
                 setToken(data.token);
                 await AsyncStorage.setItem('@token', data.token);
                 await AsyncStorage.setItem('@credenciales', JSON.stringify(data.credenciales));
+                await AsyncStorage.setItem('@socio', JSON.stringify(data.socio));
                 await AsyncStorage.setItem('@user', JSON.stringify(data.user));
                 return true;
             }
@@ -72,7 +76,8 @@ export const AuthProvider = ({ children }) => {
         setUser({});
         setToken(null);
         setCredenciales({});
-        await AsyncStorage.multiRemove(['@token', '@credenciales', '@user']);
+        setSocio(null);
+        await AsyncStorage.multiRemove(['@token', '@credenciales', '@user', '@socio']);
     };
 
     const isTokenExpired = (token) => {
@@ -82,7 +87,7 @@ export const AuthProvider = ({ children }) => {
         return currentTime > payload.exp;
     }
 
-    const value = { login, logout, user, token, credenciales, isLoading };
+    const value = { login, logout, user, token, socio, credenciales, isLoading };
 
     return (
         <AuthContext.Provider value={value}>

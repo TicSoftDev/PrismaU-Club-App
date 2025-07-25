@@ -42,3 +42,9 @@ export const formatearFechaCompleta = (valor) => {
     const fechaFormateada = format(zonedDate, "d 'de' MMMM 'de' yyyy h:mm a", { locale: es });
     return fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
 };
+
+export const formatearFechaString = (fecha) => {
+    const zonedDate = toZonedTime(fecha, zonaHoraria);
+    const fechaFormateada = format(zonedDate, "d 'de' MMMM 'de' yyyy", { locale: es });
+    return fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+};

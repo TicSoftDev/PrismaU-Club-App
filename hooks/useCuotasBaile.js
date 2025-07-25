@@ -4,7 +4,7 @@ import { createPreferencia, getCuotasBaileUser } from '../services/CuotaBaileSer
 import { alertWarning } from '../utilities/toast/Toast';
 
 export default function useCuotasBaile() {
-    const { token, user } = useAuthContext();
+    const { token, user, credenciales, socio } = useAuthContext();
 
     const [loading, setLoading] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
@@ -67,8 +67,11 @@ export default function useCuotasBaile() {
     const getCuotasUsuario = useCallback(async (showRefresh = false) => {
         showRefresh ? setRefreshing(true) : setLoading(true);
 
+        const esFamiliarConSocio = Number(credenciales.Rol) === 5 && socio && socio.Documento;
+        const documento = esFamiliarConSocio ? socio.Documento : user.Documento;
+
         try {
-            const response = await getCuotasBaileUser(user.Documento, token);
+            const response = await getCuotasBaileUser(documento, token);
             const data = response.cuotas || [];
             setCuotas(data);
             applyFiltersAndSort(data);
@@ -78,7 +81,7 @@ export default function useCuotasBaile() {
             setLoading(false);
             setRefreshing(false);
         }
-    }, [user.Documento, token, applyFiltersAndSort]);
+    }, [user.Documento, socio, credenciales.Rol, token, applyFiltersAndSort]);
 
     //==================== Actualizaciones =====================================
     const handleSearch = (query) => setSearchQuery(query);

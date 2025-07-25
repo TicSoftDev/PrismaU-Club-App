@@ -21,7 +21,7 @@ export default function CuotasBaileScreen() {
     }
 
     return (
-        <View style={tw`flex-1 bg-gray-50 mb-12`}>
+        <View style={tw`flex-1 bg-gray-50`}>
             <View style={tw`w-full bg-green-500 px-4 py-5 justify-center`}>
                 <View style={tw`flex-row justify-between items-center`}>
                     <Text style={tw`text-xl font-bold text-white`}>Cuotas de Baile</Text>

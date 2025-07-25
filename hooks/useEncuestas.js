@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { Routes } from '../routes/Routes';
 import { getEncuesta, getEncuestas, responderEncuesta } from '../services/EncuestasService';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
+import { alertSuccess, alertWarning } from '../utilities/toast/Toast';
 
 function useEncuestas() {
 
@@ -77,7 +77,7 @@ function useEncuestas() {
             };
             const data = await responderEncuesta(token, finalRespuestas);
             if (data.status) {
-                alertSucces('Respuestas enviadas');
+                alertSuccess('Respuestas enviadas');
             } else {
                 alertWarning(data.message);
             }

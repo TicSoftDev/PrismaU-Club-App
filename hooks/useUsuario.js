@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { changePassword, deleteAccount } from '../services/UsuariosService';
-import { alertSucces, alertWarning } from '../utilities/toast/Toast';
+import { alertSuccess, alertWarning } from '../utilities/toast/Toast';
 
 function useUsuario() {
 
@@ -33,7 +33,7 @@ function useUsuario() {
             if (data.message == "hecho") {
                 toggleModal();
                 setPassword('');
-                alertSucces("Contraseña actualizada");
+                alertSuccess("Contraseña actualizada");
             }
         } catch (error) {
             setLoading(false);

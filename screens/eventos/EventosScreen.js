@@ -13,7 +13,7 @@ const EventosScreen = () => {
             <View style={tw`h-20 w-full bg-green-500 pt-8 px-4`}>
                 <Text style={tw`text-xl font-bold text-white`}>Eventos</Text>
             </View>
-            <View style={tw`p-2 mb-2`}>
+            <View style={tw`mb-2 mt-5`}>
                 {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" style={tw`mt-5`} />
                 ) : (
